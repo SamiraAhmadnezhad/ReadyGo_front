@@ -1,117 +1,148 @@
-
 import 'package:flutter/material.dart';
-
+import 'package:readygo/HomePage.dart';
+import 'package:readygo/SingUp.dart';
 void main() {
-  runApp(const LoginPage());
+  runApp( MaterialApp(
+    home: Login(),
+  )
+  );
 }
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
-
+class Login extends StatefulWidget{
   @override
-  _LoginPageState createState() => _LoginPageState();
+  State<Login> createState() => _LoginPageState();
 }
-class _LoginPageState extends State<LoginPage> {
-  bool passwordVisible=false;
 
+class _LoginPageState extends State<Login> {
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    passwordVisible=true;
   }
+  String email="";
+  String password="";
   @override
-  Widget build(BuildContext context){
-    return MaterialApp(
-      home: Scaffold(
+  Widget build(BuildContext context) {
+    return Scaffold(
         appBar: AppBar(
-          backgroundColor:Colors.purple,
-          title: Text(
-            'Ready Go'
-          ),
-          //iconTheme: IconThemeData(color: Colors.green),
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-                'Login',
-              style: TextStyle(
-                fontSize: 35,
-                color: Colors.purple,
-                fontWeight: FontWeight.bold,
-              ),
+          backgroundColor: Colors.deepPurple,
+          title: const Text(
+            "Login",
+            style: TextStyle(
+              //fontWeight: FontWeight.bold,
+              fontSize: 30,
+              color: Colors.white,
             ),
-            SizedBox(height: 30),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Form(
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          hintText: 'enter email',
-                          prefixIcon: Icon(Icons.email),
-                          border: OutlineInputBorder(),
-                        ),
-                        onChanged: (String email){
-                          //print(email);
-                          // String email is here
-                        },
-                        validator: (value){
-                          return value!.isEmpty ? 'please enter email' :null;
-                        },
-                      ),
-                      SizedBox(height: 30),
-                      TextFormField(
-                        keyboardType: TextInputType.visiblePassword,
-                        obscureText: passwordVisible,
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          hintText: "Password",
-                          labelText: "Password",
-                          suffixIcon: IconButton(
-                            icon: Icon(passwordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off),
-                            onPressed: () {
-                              setState(
-                                    () {
-                                  passwordVisible = !passwordVisible;
-                                },
-                              );
-                            },
-                          ),
-                          alignLabelWithHint: false,
-                          filled: true,
-                          // validator: (pass){
-                          //   return pass!.isEmpty ? 'please enter password' :null;
-                          // },
-                        ),
-                        onChanged: (String pass){
-                          //print(pass); // String password is here
-                          },
-                      ),
-                      SizedBox(height: 30),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 100),
-                        child: MaterialButton(
-                          minWidth: double.infinity,
-                            onPressed:(){} ,//what we whant to do whit email or pass
-                            child: Text("Login"),
-                            color: Colors.purpleAccent,
-                            textColor: Colors.white,
-                        ),
-                      )
-                    ],
-                  )
-              ),
-            )
-          ],
+          ),
         ),
-      ),
-    );
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  'Login',
+                  style: TextStyle(
+                      color: Colors.deepPurple,
+                      fontSize: 60,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+                const SizedBox(height: 30),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'email',
+                    hintText: 'enter email',
+                    prefixIcon: Icon(Icons.email),
+                  ),
+                  validator: (String? email){
+                    if (email==null) {
+                      "please enter email!";
+                    }
+                    else if (email.contains("@")==false){
+                      'do not use the @ char.';}
+                  },
+                  onChanged: (String email){
+                    setState(() {
+                      this.email=email;
+                      //print(this.email);
+                    });
+                  },
+                ),
+                const SizedBox(height: 30),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'password',
+                    hintText: 'enter password',
+                    prefixIcon: Icon(Icons.lock),
+                  ),
+                  validator: (String? pass){
+                    if (pass==null) {
+                      "please enter password!";
+                    }
+                    else if (pass!.length<8){
+                      'password should be 8 charecter';
+                    }
+                  },
+                  onChanged: (String pass){
+                    setState(() {
+                      this.password=pass;
+                      //print(this.password);
+                    });
+                  },
+                ),
+                const SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: MaterialButton(
+                    minWidth: double.infinity,
+                    onPressed: (){
+                      //check pass and email
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => HomePage(password: this.password,email: this.email,),
+                        ),
+                      );
+                    },
+                    color: Colors.deepPurple,
+                    child: const Text(
+                      'login',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  'do not have a account?',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                MaterialButton(
+                  onPressed: (){
+                    //go to sing up
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => SingUp(),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    'sing up',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  color: Colors.deepPurple,
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
   }
-
 }
