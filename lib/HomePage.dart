@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          backgroundColor: Colors.pink,
+          backgroundColor: Colors.pink.shade600,
           title: const Text(
             "ReadyGo ",
             style: TextStyle(
@@ -53,6 +53,7 @@ class _HomePageState extends State<HomePage> {
           child: tabItems[_selectedIndex],
         ),
         bottomNavigationBar: FlashyTabBar(
+          backgroundColor: Colors.grey.shade300,
           animationCurve: Curves.linear,
           selectedIndex: _selectedIndex,
           iconSize: 20,
@@ -64,30 +65,38 @@ class _HomePageState extends State<HomePage> {
               }),
           items: [
             FlashyTabBarItem(
+              inactiveColor: Colors.black,
+              activeColor: Colors.black,
               icon: Icon(
                 Icons.home,
-                color: Colors.pink,
+                color: Colors.pink.shade800,
               ),
               title: Text('Home'),
             ),
             FlashyTabBarItem(
+              inactiveColor: Colors.black,
+              activeColor: Colors.black,
               icon: Icon(
                 Icons.library_books,
-                color: Colors.pink,
+                color: Colors.pink.shade800,
               ),
               title: Text('Library'),
             ),
             FlashyTabBarItem(
+              inactiveColor: Colors.black,
+              activeColor: Colors.black,
               icon: Icon(
                 Icons.shop,
-                color: Colors.pink,
+                color: Colors.pink.shade800,
               ),
               title: Text('Shop'),
             ),
             FlashyTabBarItem(
+              inactiveColor: Colors.black,
+              activeColor: Colors.black,
               icon: Icon(
                 Icons.account_box,
-                color: Colors.pink,
+                color: Colors.pink.shade800,
               ),
               title: Text('Account'),
             ),

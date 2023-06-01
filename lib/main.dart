@@ -3,6 +3,7 @@ import 'package:readygo/HomePage.dart';
 import 'package:readygo/SingUp.dart';
 void main() {
   runApp( MaterialApp(
+    debugShowCheckedModeBanner: false,
     home: Login(),
   )
   );
