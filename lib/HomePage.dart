@@ -1,4 +1,9 @@
+import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
+import 'package:readygo/Account.dart';
+import 'package:readygo/Home.dart';
+import 'package:readygo/Library.dart';
+import 'package:readygo/Shop.dart';
 
 class HomePage extends StatefulWidget{
   const HomePage({super.key, required this.password,required this.email});
@@ -9,9 +14,23 @@ class HomePage extends StatefulWidget{
 }
 
 class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+  }
+  List<Widget> tabItems = [
+    Home(),
+    Library(),
+    Shop(),
+    Account(),
+  ];
+
   final String email;
   final String password;
-  _HomePageState( this.password, this.email);
+
+  _HomePageState(this.password, this.email);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,16 +39,63 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: Colors.pink,
           title: const Text(
-            "Ready Go",
+            "ReadyGo ",
             style: TextStyle(
               //fontWeight: FontWeight.bold,
-              fontSize: 30,
+              fontSize: 20,
               color: Colors.white,
             ),
           ),
         ),
+        body: Center(
+          child: tabItems[_selectedIndex],
+        ),
+        bottomNavigationBar: FlashyTabBar(
+          animationCurve: Curves.linear,
+          selectedIndex: _selectedIndex,
+          iconSize: 20,
+          showElevation: true,
+          height: 55,
+          onItemSelected: (index) =>
+              setState(() {
+                _selectedIndex = index;
+              }),
+          items: [
+            FlashyTabBarItem(
+              icon: Icon(
+                Icons.home,
+                color: Colors.pink,
+              ),
+              title: Text('Home'),
+            ),
+            FlashyTabBarItem(
+              icon: Icon(
+                Icons.library_books,
+                color: Colors.pink,
+              ),
+              title: Text('Library'),
+            ),
+            FlashyTabBarItem(
+              icon: Icon(
+                Icons.shop,
+                color: Colors.pink,
+              ),
+              title: Text('Shop'),
+            ),
+            FlashyTabBarItem(
+              icon: Icon(
+                Icons.account_box,
+                color: Colors.pink,
+              ),
+              title: Text('Account'),
+            ),
+          ],
+
+        )
     );
   }
 }
+
+
