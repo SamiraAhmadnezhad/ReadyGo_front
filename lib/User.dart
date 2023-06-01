@@ -6,7 +6,7 @@ class User{
   String password='';
   List<Book> recentBooks=[];
   List<Book> favoriteBooks=[];
-  List<Book> purchasedbBooks=[];
+  List<Book> purchasedBooks=[];
   int money=0;
   bool isSpecial=false;
 User({
@@ -16,7 +16,7 @@ User({
   //required this.favoriteBooks,
   required this.isSpecial,
   required this.money,
-  //required this.purchasedbBooks,
+  //required this.purchasedBooks,
   required this.username,
 });
 }

@@ -5,7 +5,7 @@ class Book{
   List<Comment> comments=[];
   String png='';
   String name="";
-  String auther="";
+  String author="";
   Genre genre=Genre.scary;
   bool isFree=false;
   bool special=false;
@@ -14,15 +14,12 @@ class Book{
   bool isAvailable=true;
   int sellNum=0;
   bool isNew=false;
-  // bool isFavorite=false;
-  // bool isRecent=false;
+  String about='';
 
   Book({
-    // required this.isFavorite,
-    // required this.isRecent,
     required this.png,
     required this.name,
-    required this.auther,
+    required this.author,
     required this.genre,
     required this.isFree,
     required this.isAvailable,
@@ -31,6 +28,7 @@ class Book{
     required this.year,
     required this.sellNum,
     required this.isNew,
-    //required this.comments,
+    required this.about,
+    required this.comments,
   });
 }

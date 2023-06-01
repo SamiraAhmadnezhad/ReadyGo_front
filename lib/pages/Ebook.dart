@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:readygo/Book.dart';
 import 'package:readygo/BookView.dart';
+import 'package:readygo/Comment.dart';
 import 'package:readygo/Genre.dart';
 import 'package:readygo/User.dart';
+import 'package:readygo/pages/BookInformation.dart';
 
 class Ebook extends StatefulWidget {
   Ebook({super.key,required this.user});
@@ -13,10 +15,20 @@ class Ebook extends StatefulWidget {
 
 class _EbookState extends State<Ebook> {
   _EbookState ({required this.user});
+  @override
+  void initState() {
+    super.initState();
+  }
   User user;
-  List<Book> books=[
+  List <Comment> comments=[
+    Comment(commentMassage: "good", dislike: 0, like: 0, nameUser: "Fatemeh"),
+    Comment(commentMassage: "bad", dislike: 0, like: 0, nameUser: "reza"),
+    Comment(commentMassage: "very good", dislike: 0, like: 0, nameUser: "sina"),
+    Comment(commentMassage: "very good", dislike: 0, like: 0, nameUser: "sara"),
+  ];
+  late List<Book> books=[
     Book(png: "assets/images/hary1.jpg",
-        name: "hary2", auther: "samira",
+        name: "hary2", author: "samira",
         genre: Genre.Criminal,
         isFree: true,
         isAvailable: true,
@@ -25,9 +37,11 @@ class _EbookState extends State<Ebook> {
         year: 1383,
         sellNum: 20,
         isNew: true,
+      about: "ekjfhksjhgfkjdhgkjhdgrhtgdhgh",
+      comments: comments,
     ),
     Book(png: "assets/images/hary2.jpg",
-      name: "hary2", auther: "samira",
+      name: "hary2", author: "samira",
       genre: Genre.Criminal,
       isFree: true,
       isAvailable: true,
@@ -36,9 +50,11 @@ class _EbookState extends State<Ebook> {
       year: 1383,
       sellNum: 20,
       isNew: true,
+      about: "ekjfhksjhgfkjdhgkjhdgrhtgdhgh",
+      comments: comments,
     ),
     Book(png: "assets/images/hary3.jpg",
-      name: "hary3", auther: "samira",
+      name: "hary3", author: "samira",
       genre: Genre.Criminal,
       isFree: true,
       isAvailable: true,
@@ -47,9 +63,11 @@ class _EbookState extends State<Ebook> {
       year: 1383,
       sellNum: 20,
       isNew: true,
+      about: "ekjfhksjhgfkjdhgkjhdgrhtgdhgh",
+      comments: comments,
     ),
     Book(png: "assets/images/hary4.jpg",
-      name: "hary4", auther: "samira",
+      name: "hary4", author: "samira",
       genre: Genre.Criminal,
       isFree: true,
       isAvailable: true,
@@ -58,6 +76,8 @@ class _EbookState extends State<Ebook> {
       year: 1383,
       sellNum: 20,
       isNew: true,
+      about: "ekjfhksjhgfkjdhgkjhdgrhtgdhgh",
+      comments: comments,
     ),
   ];
   List<Book> newBook (List<Book> books){
@@ -108,7 +128,11 @@ class _EbookState extends State<Ebook> {
                         return BookView(
                           book : Book,
                           onTap : (){
-                            print("jjj");
+                            Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => BookInformation(user: user, book: Book,)
+                                ),
+                              );
                           },
                         );
                       },
@@ -152,7 +176,11 @@ class _EbookState extends State<Ebook> {
                         return BookView(
                           book : Book,
                           onTap : (){
-                            print("jjj");
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => BookInformation(user: user, book: Book,)
+                              ),
+                            );
                           },
                         );
                       },
@@ -195,7 +223,11 @@ class _EbookState extends State<Ebook> {
                         return BookView(
                           book : Book,
                           onTap : (){
-                            print("jjj");
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => BookInformation(user: user, book: Book,)
+                              ),
+                            );
                           },
                         );
                       },
@@ -238,7 +270,11 @@ class _EbookState extends State<Ebook> {
                         return BookView(
                           book : Book,
                           onTap : (){
-                            print("jjj");
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => BookInformation(user: user, book: Book,)
+                              ),
+                            );
                           },
                         );
                       },
