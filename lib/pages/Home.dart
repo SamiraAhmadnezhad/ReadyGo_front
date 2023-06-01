@@ -1,8 +1,11 @@
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
-import 'package:readygo/Ebook.dart';
+import 'package:readygo/pages/Ebook.dart';
+import 'package:readygo/User.dart';
 
 class Home extends StatefulWidget {
+  Home({super.key,required this.user});
+  User user;
   @override
   State<Home> createState() => _HomeState();
 }

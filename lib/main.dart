@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:readygo/HomePage.dart';
-import 'package:readygo/SingUp.dart';
+import 'package:readygo/User.dart';
+import 'package:readygo/pages/HomePage.dart';
+import 'package:readygo/pages/SingUp.dart';
 void main() {
   runApp( MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -104,7 +105,13 @@ class _LoginPageState extends State<Login> {
                     //check pass and email
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => HomePage(password: this.password,email: this.email,),
+                        builder: (context) => HomePage( user: User(
+                          password: password,
+                          email: email,
+                          isSpecial: false,
+                          money: 0,
+                          username: 'empaty',
+                        ),),
                       ),
                     );
                   },

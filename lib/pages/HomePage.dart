@@ -1,35 +1,36 @@
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
-import 'package:readygo/Account.dart';
-import 'package:readygo/Home.dart';
-import 'package:readygo/Library.dart';
-import 'package:readygo/Shop.dart';
+import 'package:readygo/pages/Account.dart';
+import 'package:readygo/Book.dart';
+import 'package:readygo/Comment.dart';
+import 'package:readygo/Genre.dart';
+import 'package:readygo/pages/Home.dart';
+import 'package:readygo/pages/Library.dart';
+import 'package:readygo/pages/Shop.dart';
+import 'package:readygo/User.dart';
 
 class HomePage extends StatefulWidget{
-  const HomePage({super.key, required this.password,required this.email});
-  final String email;
-  final String password;
+  const HomePage( {super.key, required this.user});
+  final User user;
   @override
-  State<HomePage> createState() => _HomePageState(password,email);
+  State<HomePage> createState() => _HomePageState(user);
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
-  @override
-  void initState() {
-    super.initState();
-  }
+  _HomePageState(this.user);
+   User user;
   List<Widget> tabItems = [
     Home(),
     Library(),
     Shop(),
     Account(),
   ];
+  int _selectedIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+  }
 
-  final String email;
-  final String password;
-
-  _HomePageState(this.password, this.email);
 
   @override
   Widget build(BuildContext context) {

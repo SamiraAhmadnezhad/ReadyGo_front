@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:readygo/HomePage.dart';
+import 'package:readygo/User.dart';
+import 'package:readygo/pages/HomePage.dart';
 
 class SingUp extends StatefulWidget{
   @override
@@ -112,7 +113,15 @@ class _SingUpState extends State<SingUp> {
                   //check pass and email
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => HomePage(password: this.password,email: this.email,),
+                      builder: (context) => HomePage(
+                        user: User(
+                        password: password,
+                        email: email,
+                        isSpecial: false,
+                        money: 0,
+                        username: 'empaty',
+                      ),
+                      ),
                     ),
                   );
                 },

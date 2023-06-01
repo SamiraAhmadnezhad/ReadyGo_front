@@ -1,11 +1,9 @@
+import 'package:readygo/Comment.dart';
 import 'package:readygo/Genre.dart';
-List books= <Book>[];
-
-void addBook (Book x){
-  books.add(x);
-}
 
 class Book{
+  List<Comment> comments=[];
+  String png='';
   String name="";
   String auther="";
   Genre genre=Genre.scary;
@@ -16,8 +14,14 @@ class Book{
   bool isAvailable=true;
   int sellNum=0;
   bool isNew=false;
+  // bool isFavorite=false;
+  // bool isRecent=false;
 
-  Book({required this.name,
+  Book({
+    // required this.isFavorite,
+    // required this.isRecent,
+    required this.png,
+    required this.name,
     required this.auther,
     required this.genre,
     required this.isFree,
@@ -27,5 +31,6 @@ class Book{
     required this.year,
     required this.sellNum,
     required this.isNew,
+    required this.comments,
   });
 }
