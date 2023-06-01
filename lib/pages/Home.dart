@@ -4,21 +4,23 @@ import 'package:readygo/pages/Ebook.dart';
 import 'package:readygo/User.dart';
 
 class Home extends StatefulWidget {
-  Home({super.key,required this.user});
-  User user;
+  const Home({super.key,required this.user});
+  final User user;
   @override
-  State<Home> createState() => _HomeState();
+  State<Home> createState() => _HomeState(user: user);
 }
 
 class _HomeState extends State<Home> {
+  _HomeState({required this.user});
+  User user;
   int _selectedIndex = 0;
   @override
   void initState() {
     super.initState();
   }
-  List<Widget> tabItems = [
-    const Ebook(),
-    const Ebook(),
+  late List<Widget> tabItems = [
+    Ebook(user: user),
+    Ebook(user: user),
   ];
   @override
   Widget build(BuildContext context) {

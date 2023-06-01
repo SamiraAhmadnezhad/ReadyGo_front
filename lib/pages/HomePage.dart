@@ -19,8 +19,8 @@ class HomePage extends StatefulWidget{
 class _HomePageState extends State<HomePage> {
   _HomePageState(this.user);
    User user;
-  List<Widget> tabItems = [
-    Home(),
+  late List<Widget> tabItems = [
+    Home(user: user),
     Library(),
     Shop(),
     Account(),

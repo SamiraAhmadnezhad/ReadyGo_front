@@ -31,6 +31,6 @@ class Book{
     required this.year,
     required this.sellNum,
     required this.isNew,
-    required this.comments,
+    //required this.comments,
   });
 }
