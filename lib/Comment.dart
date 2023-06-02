@@ -1,13 +1,13 @@
 class Comment {
   String nameUser = "";
   String commentMassage = "";
-  int like = 0;
-  int dislike = 0;
+  int like;
+  int dislike ;
 
   Comment({
     required this.commentMassage,
-    required this.dislike,
-    required this.like,
+    this.dislike=0,
+    this.like=0,
     required this.nameUser,
   });
 }

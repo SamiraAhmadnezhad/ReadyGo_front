@@ -110,7 +110,7 @@ class _LoginPageState extends State<Login> {
                           email: email,
                           isSpecial: false,
                           money: 0,
-                          username: 'empaty',
+                          username: 'akbar',
                         ),),
                       ),
                     );

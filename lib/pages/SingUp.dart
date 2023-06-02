@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:readygo/Book.dart';
+import 'package:readygo/Comment.dart';
+import 'package:readygo/Genre.dart';
 import 'package:readygo/User.dart';
 import 'package:readygo/pages/HomePage.dart';
 
@@ -119,7 +122,7 @@ class _SingUpState extends State<SingUp> {
                         email: email,
                         isSpecial: false,
                         money: 0,
-                        username: 'empaty',
+                        username: 'Asghar',
                       ),
                       ),
                     ),

@@ -5,7 +5,7 @@ import 'package:readygo/Comment.dart';
 import 'package:readygo/Genre.dart';
 import 'package:readygo/User.dart';
 import 'package:readygo/pages/BookInformation.dart';
-
+import 'package:readygo/pages/getListBook.dart';
 class Ebook extends StatefulWidget {
   Ebook({super.key,required this.user});
   User user;
@@ -20,66 +20,7 @@ class _EbookState extends State<Ebook> {
     super.initState();
   }
   User user;
-  List <Comment> comments=[
-    Comment(commentMassage: "good", dislike: 0, like: 0, nameUser: "Fatemeh"),
-    Comment(commentMassage: "bad", dislike: 0, like: 0, nameUser: "reza"),
-    Comment(commentMassage: "very good", dislike: 0, like: 0, nameUser: "sina"),
-    Comment(commentMassage: "very good", dislike: 0, like: 0, nameUser: "sara"),
-  ];
-  late List<Book> books=[
-    Book(png: "assets/images/hary1.jpg",
-        name: "hary2", author: "samira",
-        genre: Genre.Criminal,
-        isFree: true,
-        isAvailable: true,
-        price: 0,
-        special: false,
-        year: 1383,
-        sellNum: 20,
-        isNew: true,
-      about: "ekjfhksjhgfkjdhgkjhdgrhtgdhgh",
-      comments: comments,
-    ),
-    Book(png: "assets/images/hary2.jpg",
-      name: "hary2", author: "samira",
-      genre: Genre.Criminal,
-      isFree: true,
-      isAvailable: true,
-      price: 0,
-      special: false,
-      year: 1383,
-      sellNum: 20,
-      isNew: true,
-      about: "ekjfhksjhgfkjdhgkjhdgrhtgdhgh",
-      comments: comments,
-    ),
-    Book(png: "assets/images/hary3.jpg",
-      name: "hary3", author: "samira",
-      genre: Genre.Criminal,
-      isFree: true,
-      isAvailable: true,
-      price: 0,
-      special: false,
-      year: 1383,
-      sellNum: 20,
-      isNew: true,
-      about: "ekjfhksjhgfkjdhgkjhdgrhtgdhgh",
-      comments: comments,
-    ),
-    Book(png: "assets/images/hary4.jpg",
-      name: "hary4", author: "samira",
-      genre: Genre.Criminal,
-      isFree: true,
-      isAvailable: true,
-      price: 0,
-      special: false,
-      year: 1383,
-      sellNum: 20,
-      isNew: true,
-      about: "ekjfhksjhgfkjdhgkjhdgrhtgdhgh",
-      comments: comments,
-    ),
-  ];
+
   List<Book> newBook (List<Book> books){
     List<Book> result=[];
     for (Book b in books){
@@ -119,12 +60,12 @@ class _EbookState extends State<Ebook> {
                   Container(
                     height: MediaQuery.of(context).size.height / 2-150,
                     //color: Colors.blue,
-                    child: user.recentBooks.isNotEmpty
+                    child: user.recentBooks!=null
                     ? ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: user.recentBooks.length,
+                      itemCount: user.recentBooks!.length,
                       itemBuilder: (context,index){
-                        final Book=user.recentBooks[index];
+                        final Book=user.recentBooks![index];
                         return BookView(
                           book : Book,
                           onTap : (){
@@ -167,12 +108,12 @@ class _EbookState extends State<Ebook> {
                   Container(
                     //color: Colors.pink.shade50,
                     height: MediaQuery.of(context).size.height / 2-150,
-                    child: user.favoriteBooks.isNotEmpty
+                    child: user.favoriteBooks!=null
                         ? ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: user.favoriteBooks.length,
+                      itemCount: user.favoriteBooks!.length,
                       itemBuilder: (context,index){
-                        final Book=user.favoriteBooks[index];
+                        final Book=user.favoriteBooks![index];
                         return BookView(
                           book : Book,
                           onTap : (){
@@ -214,12 +155,12 @@ class _EbookState extends State<Ebook> {
                   SizedBox(height: 10,),
                   Container(
                     height: MediaQuery.of(context).size.height / 2-150,
-                    child: newBook(books).isNotEmpty
+                    child: newBook(getListBook.books).isNotEmpty
                         ? ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: newBook(books).length,
+                      itemCount: newBook(getListBook.books).length,
                       itemBuilder: (context,index){
-                        final Book= newBook(books)[index];
+                        final Book= newBook(getListBook.books)[index];
                         return BookView(
                           book : Book,
                           onTap : (){
@@ -261,20 +202,22 @@ class _EbookState extends State<Ebook> {
                   SizedBox(height: 10,),
                   Container(
                     height: MediaQuery.of(context).size.height / 2-150,
-                    child: TopSellingBook(books).isNotEmpty
+                    child: TopSellingBook(getListBook.books).isNotEmpty
                         ? ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: TopSellingBook(books).length,
+                      itemCount: TopSellingBook(getListBook.books).length,
                       itemBuilder: (context,index){
-                        final Book=TopSellingBook(books)[index];
+                        final Book=TopSellingBook(getListBook.books)[index];
                         return BookView(
                           book : Book,
                           onTap : (){
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => BookInformation(user: user, book: Book,)
-                              ),
-                            );
+                            setState(() {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => BookInformation(user: user, book: Book,)
+                                ),
+                              );
+                            });
                           },
                         );
                       },

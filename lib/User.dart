@@ -4,19 +4,19 @@ class User{
   String username='';
   String email='';
   String password='';
-  List<Book> recentBooks=[];
-  List<Book> favoriteBooks=[];
-  List<Book> purchasedBooks=[];
+  List<Book>? recentBooks=[];
+  List<Book>? favoriteBooks=[];
+  List<Book>? purchasedBooks=[];
   int money=0;
   bool isSpecial=false;
 User({
-  //required this.recentBooks,
+  this.recentBooks,
   required this.email,
   required this.password,
-  //required this.favoriteBooks,
+  this.favoriteBooks,
   required this.isSpecial,
   required this.money,
-  //required this.purchasedBooks,
+  this.purchasedBooks,
   required this.username,
 });
 }

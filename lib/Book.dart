@@ -2,7 +2,7 @@ import 'package:readygo/Comment.dart';
 import 'package:readygo/Genre.dart';
 
 class Book{
-  List<Comment> comments=[];
+  List<Comment>? comments;
   String png='';
   String name="";
   String author="";
@@ -29,6 +29,6 @@ class Book{
     required this.sellNum,
     required this.isNew,
     required this.about,
-    required this.comments,
+    this.comments,
   });
 }
