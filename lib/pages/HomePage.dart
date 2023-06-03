@@ -21,8 +21,8 @@ class _HomePageState extends State<HomePage> {
    User user;
   late List<Widget> tabItems = [
     Home(user: user),
-    Library(),
-    Shop(),
+   Library(user: user,),
+    Shop(user: user,),
     Account(),
   ];
   int _selectedIndex = 0;

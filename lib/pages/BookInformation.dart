@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:like_button/like_button.dart';
 import 'package:readygo/Book.dart';
 import 'package:readygo/Comment.dart';
 import 'package:readygo/CommentView.dart';
@@ -24,6 +25,35 @@ class _BookInformationState extends State<BookInformation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: Align(
+          alignment: Alignment.bottomRight,
+          //heightFactor: 5,
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: IconButton(
+              disabledColor: Colors.white,
+              onPressed: () {
+                setState(() {
+                  if (user.favoriteBooks==null){
+                    List<Book> x=[];
+                    user.favoriteBooks=x;
+                    user.favoriteBooks!.add(book);
+                  }
+                  bool isin=false;
+                  for  (Book b in user.favoriteBooks!){
+                    if (b==book)
+                      isin=true;
+                  }
+                  if (isin==false)
+                    user.favoriteBooks!.add(book);
+                });
+              },
+              icon: Icon(Icons.favorite,
+                color: Colors.pink.shade400,
+                size: 30,),
+            ),
+          ),
+        ),
         backgroundColor: Colors.grey.shade600,
         title: const Text(
         "ReadyGo",
@@ -61,12 +91,15 @@ class _BookInformationState extends State<BookInformation> {
                     minWidth: double.infinity,
                    onPressed: (){
                      setState(() {
+                       book.sellNum++;
                        List<Book> b =[];
                        user.purchasedBooks=b;
                        user.purchasedBooks!.add(book); // check money
-                       // user.recentBooks=b;
-                       // user.recentBooks!.add(book);
-                       // print(user.recentBooks![0]);
+                       if (user.recentBooks==null){
+                         List<Book> x=[];
+                         user.recentBooks=x;
+                       }
+                       user.recentBooks!.add(book);
                      });
                      Navigator.of(context).push(
                        MaterialPageRoute(
@@ -171,7 +204,11 @@ class _BookInformationState extends State<BookInformation> {
                   child: Column(
                     children: [
                       MaterialButton(
-                          onPressed: (){},
+                          onPressed: (){
+                            setState(() {
+                              user.recentBooks!.remove(book);
+                            });
+                          },
                         color: Colors.pink.shade400,
                         height: 45,
                         minWidth: double.infinity,
@@ -186,7 +223,8 @@ class _BookInformationState extends State<BookInformation> {
                       ),
                       const SizedBox(height: 15,),
                       MaterialButton(
-                        onPressed: (){},
+                        onPressed: (){
+                        },
                         color: Colors.pink.shade400,
                         height: 45,
                         minWidth: double.infinity,
@@ -203,180 +241,180 @@ class _BookInformationState extends State<BookInformation> {
                   ),
                 ),
 
-              const SizedBox(height: 15,),
-              if (user.isSpecial==false)
-                const Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "By purchasing a subscription"
-                        " you can use all the books for free",
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              const SizedBox(height: 20,),
-              const Align(
-                alignment: Alignment.topLeft,
-                child:  Text(
-                  "About :",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10,),
-              Container(
-                height: 1,
-                color: Colors.black,
-              ),
-              const SizedBox(height: 10,),
-               Text(
-                book.about,
-                style: const TextStyle(
-                  fontSize: 17,
-                  color: Colors.black87,
-                ),
-              ),
-              const SizedBox(height: 40,),
-              ListTile(
-                //focusColor: Colors.cyanAccent,
-                //selectedColor: Colors.blue,
-                tileColor: Colors.pink.shade100,
-                  leading: const Icon(Icons.person),
-                  title: const Text(
-                    "Auther"
-                  ),
-                  trailing: Text (
-                    book.author
-                  ),
-              ),
-              ListTile(
-                //focusColor: Colors.cyanAccent,
-                //selectedColor: Colors.blue,
-                tileColor: Colors.white,
-                leading: Icon(Icons.money),
-                title: Text(
-                    "Price"
-                ),
-                trailing: Text (
-                    book.price.toString(),
-                ),
-              ),
-              ListTile(
-                //focusColor: Colors.cyanAccent,
-                //selectedColor: Colors.blue,
-                tileColor: Colors.pink.shade100,
-                leading: Icon(Icons.picture_as_pdf),
-                title: const Text(
-                    "Format"
-                ),
-                trailing: const Text (
-                    "Pdf"
-                ),
-              ),
-              ListTile(
-                //focusColor: Colors.cyanAccent,
-                //selectedColor: Colors.blue,
-                tileColor: Colors.white,
-                leading: const Icon(Icons.generating_tokens),
-                title: const Text(
-                    "Year Of Publication"
-                ),
-                trailing: Text (
-                    book.year.toString(),
-                ),
-              ),
-              const SizedBox(height: 40,),
-              const Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Comments ",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10,),
-              Container(
-                color: Colors.black,
-                height: 1,
-              ),
-              const SizedBox(height: 10,),
-              Container(
-                height: MediaQuery.of(context).size.height / 2-150,
-                child: book.comments!=null
-                    ? ListView.builder(
-                  itemCount: book.comments!.length,
-                  itemBuilder: (context,index){
-                    final Comment= book.comments![index];
-                    return CommentView(
-                      comment : Comment,
-                      onTaplike : (){
-                        setState(() {
-                          Comment.like++;
-                        });
-                      },
-                      onTapDislike : (){
-                        setState(() {
-                          Comment.dislike++;
-                        });
-                      },
-                    );
-                  },
-                )
-                    : const Center(
-                  child: Text(
-                    'Be the first comments writer.',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 40,),
-              Row(
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width*3/4,
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: 'Write a comment',
-                          prefixIcon: Icon(Icons.border_color_outlined,
-                          color: Colors.grey,),
+                    const SizedBox(height: 15,),
+                    if (user.isSpecial==false)
+                      const Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "By purchasing a subscription"
+                              " you can use all the books for free",
+                          textAlign: TextAlign.center,
                         ),
-                        onChanged: (String com){
-                          setState(() {
-                            this.thisUserComment=com;
-                          });
-                        },
+                      ),
+                    const SizedBox(height: 20,),
+                    const Align(
+                      alignment: Alignment.topLeft,
+                      child:  Text(
+                        "About :",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
                       ),
                     ),
-                  ),
-                  Align(
-                    alignment: Alignment.topRight,
-                      child:IconButton(
-                        icon: Icon(Icons.send,
-                        color: Colors.grey.shade600,),
-                        onPressed: () {
-                          setState(() {
-                            List<Comment> x=[];
-                            book.comments ??= x;
-                            book.comments?.add(Comment(commentMassage: thisUserComment, nameUser: user.username));
-                          });
+                    const SizedBox(height: 10,),
+                    Container(
+                      height: 1,
+                      color: Colors.black,
+                    ),
+                    const SizedBox(height: 10,),
+                    Text(
+                      book.about,
+                      style: const TextStyle(
+                        fontSize: 17,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    const SizedBox(height: 40,),
+                    ListTile(
+                      //focusColor: Colors.cyanAccent,
+                      //selectedColor: Colors.blue,
+                      tileColor: Colors.pink.shade100,
+                      leading: const Icon(Icons.person),
+                      title: const Text(
+                          "Auther"
+                      ),
+                      trailing: Text (
+                          book.author
+                      ),
+                    ),
+                    ListTile(
+                      //focusColor: Colors.cyanAccent,
+                      //selectedColor: Colors.blue,
+                      tileColor: Colors.white,
+                      leading: Icon(Icons.money),
+                      title: Text(
+                          "Price"
+                      ),
+                      trailing: Text (
+                        book.price.toString(),
+                      ),
+                    ),
+                    ListTile(
+                      //focusColor: Colors.cyanAccent,
+                      //selectedColor: Colors.blue,
+                      tileColor: Colors.pink.shade100,
+                      leading: Icon(Icons.picture_as_pdf),
+                      title: const Text(
+                          "Format"
+                      ),
+                      trailing: const Text (
+                          "Pdf"
+                      ),
+                    ),
+                    ListTile(
+                      //focusColor: Colors.cyanAccent,
+                      //selectedColor: Colors.blue,
+                      tileColor: Colors.white,
+                      leading: const Icon(Icons.generating_tokens),
+                      title: const Text(
+                          "Year Of Publication"
+                      ),
+                      trailing: Text (
+                        book.year.toString(),
+                      ),
+                    ),
+                    const SizedBox(height: 40,),
+                    const Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        "Comments ",
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10,),
+                    Container(
+                      color: Colors.black,
+                      height: 1,
+                    ),
+                    const SizedBox(height: 10,),
+                    Container(
+                      height: MediaQuery.of(context).size.height / 2-150,
+                      child: book.comments!.isNotEmpty
+                          ? ListView.builder(
+                        itemCount: book.comments!.length,
+                        itemBuilder: (context,index){
+                          final Comment= book.comments![index];
+                          return CommentView(
+                            comment : Comment,
+                            onTaplike : (){
+                              setState(() {
+                                Comment.like++;
+                              });
+                            },
+                            onTapDislike : (){
+                              setState(() {
+                                Comment.dislike++;
+                              });
+                            },
+                          );
                         },
                       )
-                  )
-                ],
+                          : const Center(
+                        child: Text(
+                          'Be the first comments writer.',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 40,),
+                    Row(
+                      children: [
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width-110,
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                labelText: 'Write a comment',
+                                prefixIcon: Icon(Icons.border_color_outlined,
+                                  color: Colors.grey,),
+                              ),
+                              onChanged: (String com){
+                                setState(() {
+                                  this.thisUserComment=com;
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                        Align(
+                            alignment: Alignment.topRight,
+                            child:IconButton(
+                              icon: Icon(Icons.send,
+                                color: Colors.grey.shade600,),
+                              onPressed: () {
+                                setState(() {
+                                  List<Comment> x=[];
+                                  book.comments ??= x;
+                                  book.comments?.add(Comment(commentMassage: thisUserComment, nameUser: user.username));
+                                });
+                              },
+                            )
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

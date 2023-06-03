@@ -58,7 +58,7 @@ class _EbookState extends State<Ebook> {
                     ),),
                   SizedBox(height: 10,),
                   Container(
-                    height: MediaQuery.of(context).size.height / 2-150,
+                    height: MediaQuery.of(context).size.height / 2-220,
                     //color: Colors.blue,
                     child: user.recentBooks!=null
                     ? ListView.builder(
@@ -107,7 +107,7 @@ class _EbookState extends State<Ebook> {
                   SizedBox(height: 10,),
                   Container(
                     //color: Colors.pink.shade50,
-                    height: MediaQuery.of(context).size.height / 2-150,
+                    height: MediaQuery.of(context).size.height / 2-220,
                     child: user.favoriteBooks!=null
                         ? ListView.builder(
                       scrollDirection: Axis.horizontal,
@@ -154,7 +154,7 @@ class _EbookState extends State<Ebook> {
                     ),),
                   SizedBox(height: 10,),
                   Container(
-                    height: MediaQuery.of(context).size.height / 2-150,
+                    height: MediaQuery.of(context).size.height / 2-220,
                     child: newBook(getListBook.books).isNotEmpty
                         ? ListView.builder(
                       scrollDirection: Axis.horizontal,
@@ -189,6 +189,7 @@ class _EbookState extends State<Ebook> {
 
 
             Container(
+              //height: 200,
               color: Colors.pink.shade50,
               child: Column(
                 children: [
@@ -201,9 +202,11 @@ class _EbookState extends State<Ebook> {
                   ),),
                   SizedBox(height: 10,),
                   Container(
-                    height: MediaQuery.of(context).size.height / 2-150,
+                    height: MediaQuery.of(context).size.height / 2-220,
                     child: TopSellingBook(getListBook.books).isNotEmpty
                         ? ListView.builder(
+                      addAutomaticKeepAlives: true,
+                      //padding:const EdgeInsets.all(8.0),
                       scrollDirection: Axis.horizontal,
                       itemCount: TopSellingBook(getListBook.books).length,
                       itemBuilder: (context,index){

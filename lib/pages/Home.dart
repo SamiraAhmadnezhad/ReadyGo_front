@@ -11,7 +11,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   _HomeState({required this.user});
   User user;
   int _selectedIndex = 0;

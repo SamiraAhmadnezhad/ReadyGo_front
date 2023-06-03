@@ -13,10 +13,12 @@ class BookView extends StatelessWidget {
     return Column(
       children: [
         IconButton(
+          //style:IconButton.styleFrom(foregroundColor: Colors.green) ,
           icon: Image.asset(book.png,
-          height: 200,
-          width: 150,),
-          iconSize: 200,
+          // height: 100,
+          // width: 100,
+          ),
+          iconSize: MediaQuery.of(context).size.height / 6,
           onPressed: onTap,
           
         ),
