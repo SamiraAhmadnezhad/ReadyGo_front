@@ -1,7 +1,7 @@
+import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
-import 'package:readygo/BookView.dart';
+import 'package:readygo/pages/Ebook.dart';
 import 'package:readygo/User.dart';
-import 'package:readygo/pages/BookInformation.dart';
 
 class Library extends StatefulWidget {
   const Library({super.key,required this.user});
@@ -12,50 +12,53 @@ class Library extends StatefulWidget {
 
 class _LibraryState extends State<Library> {
   _LibraryState({required this.user});
-  String search='';
   User user;
+  int _selectedIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+  }
+  late List<Widget> tabItems = [
+    Ebook(user: user),
+    Ebook(user: user),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Container(
-        child: Column(
-          children: [
-            SizedBox(height: 10,),
-            Container(
-              //color: Colors.pink.shade50,
-              height: MediaQuery.of(context).size.height / 2-220,
-              child: user.purchasedBooks!=null
-                  ? ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: user.purchasedBooks!.length,
-                itemBuilder: (context,index){
-                  final Book=user.purchasedBooks![index];
-                  return BookView(
-                    book : Book,
-                    onTap : (){
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => BookInformation(user: user, book: Book,)
-                        ),
-                      );
-                    },
-                  );
-                },
-              )
-                  : const Center(
-                child: Text(
-                  'There are no books in favorites.',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                  ),
-                ),
-              ),
+      body: Center(
+        child: tabItems[_selectedIndex],
+      ),
+      bottomNavigationBar:FlashyTabBar(
+        height: 55,
+        backgroundColor: Colors.grey.shade200,
+        animationCurve: Curves.linear,
+        selectedIndex: _selectedIndex,
+        iconSize: 20,
+        showElevation: false,
+        onItemSelected: (index) =>
+            setState(() {
+              _selectedIndex = index;
+            }),
+        items: [
+          FlashyTabBarItem(
+            inactiveColor: Colors.black,
+            activeColor: Colors.black,
+            icon: Icon(
+              Icons.book,
+              color: Colors.pink.shade800,
             ),
-
-          ],
-        ),
+            title: Text('Ebook'),
+          ),
+          FlashyTabBarItem(
+            inactiveColor: Colors.black,
+            activeColor: Colors.black,
+            icon: Icon(
+              Icons.headset,
+              color: Colors.pink.shade800,
+            ),
+            title: Text('Audio Book'),
+          ),
+        ],
       ),
     );
   }

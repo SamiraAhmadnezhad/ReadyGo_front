@@ -19,7 +19,7 @@ class _SearchState extends State<Search> {
   List<Book> searchedBook(String name){
     List<Book> result=[];
     for (Book b in getListBook.books) {
-      if (b.name.contains(search))
+      if (b.name.toLowerCase().contains(search))
         result.add(b);
     }
     return result;

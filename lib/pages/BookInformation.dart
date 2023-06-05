@@ -1,6 +1,6 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:like_button/like_button.dart';
 import 'package:readygo/Book.dart';
 import 'package:readygo/Comment.dart';
 import 'package:readygo/CommentView.dart';
@@ -21,6 +21,29 @@ class _BookInformationState extends State<BookInformation> {
   User user;
   Book book;
   bool isBy=false;
+  Color star1=Colors.grey.shade600;
+  Color star2=Colors.grey.shade600;
+  Color star3=Colors.grey.shade600;
+  Color star4=Colors.grey.shade600;
+  Color star5=Colors.grey.shade600;
+  Color favorite=Colors.white;
+  bool checkNull (List<Book>? books){
+    if (books==null)
+      return true;
+    else if (books!.isEmpty)
+      return true;
+    else {
+      for (Book b in books){
+        if (b==book);
+        return false;
+      }
+      return true;
+    }
+  }
+  List<Comment> sortComment (){
+    book.comments!.sort((a, b) => b.like.compareTo(a.like));
+    return book.comments!;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +57,7 @@ class _BookInformationState extends State<BookInformation> {
               disabledColor: Colors.white,
               onPressed: () {
                 setState(() {
+                  favorite=Colors.pink;
                   if (user.favoriteBooks==null){
                     List<Book> x=[];
                     user.favoriteBooks=x;
@@ -46,10 +70,11 @@ class _BookInformationState extends State<BookInformation> {
                   }
                   if (isin==false)
                     user.favoriteBooks!.add(book);
+                  book.like++;
                 });
               },
               icon: Icon(Icons.favorite,
-                color: Colors.pink.shade400,
+                color: favorite,
                 size: 30,),
             ),
           ),
@@ -82,175 +107,171 @@ class _BookInformationState extends State<BookInformation> {
                 ),
               ),
               const SizedBox(height: 20,),
-              if (user.purchasedBooks==null)
-              (book.isAvailable
-               ? Padding(
-                 padding: const EdgeInsets.symmetric(horizontal: 30),
-                 child: MaterialButton(
-                   height: 45,
-                    minWidth: double.infinity,
-                   onPressed: (){
-                     setState(() {
-                       book.sellNum++;
-                       List<Book> b =[];
-                       user.purchasedBooks=b;
-                       user.purchasedBooks!.add(book); // check money
-                       if (user.recentBooks==null){
-                         List<Book> x=[];
-                         user.recentBooks=x;
-                       }
-                       user.recentBooks!.add(book);
-                     });
-                     Navigator.of(context).push(
-                       MaterialPageRoute(
-                         builder: (context) => PurchasePage(),
-                       ),
-                     );
-                   },
-                    color: Colors.pink.shade400,
-                    child: book.isFree
-                      ?const Text(
-                      "by | free",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
-                    )
-                  : Text(
-                      "by | ${book.price} Toman",
-                      style: const TextStyle(
-                      color: Colors.white,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-               )
-              : Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: MaterialButton(
-                  height: 45,
-                  minWidth: double.infinity,
-                  onPressed: () {},
-                  color: Colors.pink.shade400,
-                  child: const Text(
-                    "is not available!"
-                        " Notify me when available",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                    ),
-                  ),
-                ),
-              ))
-              else
-                for (Book b in user.purchasedBooks!)
-                  if(b!=book)
-                    book.isAvailable
-                        ? Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: MaterialButton(
-                        height: 45,
-                        minWidth: double.infinity,
-                        onPressed: (){
-                          setState(() {
-                            List<Book> b =[];
-                            user.purchasedBooks=b;
-                            user.purchasedBooks!.add(book); // check money
-                          });
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => PurchasePage(),
-                            ),
-                          );
-                        },
-                        color: Colors.pink.shade400,
-                        child: book.isFree
-                            ?const Text(
-                          "by | free",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
-                        )
-                            : Text(
-                          "by | ${book.price} Toman",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                    )
-                        : Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: MaterialButton(
-                        height: 45,
-                        minWidth: double.infinity,
-                        onPressed: () {},
-                        color: Colors.pink.shade400,
-                        child: const Text(
-                          "is not available!"
-                              " Notify me when available",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                          ),
-                        ),
-                      ),
-                    )
-              else
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Column(
-                    children: [
-                      MaterialButton(
+
+              if (checkNull(user.purchasedBooks)==false)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: Column(
+                      children: [
+                        MaterialButton(
                           onPressed: (){
                             setState(() {
                               user.recentBooks!.remove(book);
                             });
                           },
-                        color: Colors.pink.shade400,
-                        height: 45,
-                        minWidth: double.infinity,
-                        child: const Text(
-                          "I have read",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold
+                          color: Colors.pink.shade400,
+                          height: 45,
+                          minWidth: double.infinity,
+                          child: const Text(
+                            "I have read",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 15,),
-                      MaterialButton(
-                        onPressed: (){
-                        },
-                        color: Colors.pink.shade400,
-                        height: 45,
-                        minWidth: double.infinity,
-                        child: const Text(
+                        const SizedBox(height: 15,),
+                        MaterialButton(
+                          onPressed: (){
+                            // open pdf
+                          },
+                          color: Colors.pink.shade400,
+                          height: 45,
+                          minWidth: double.infinity,
+                          child: const Text(
                             "Open",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+
+                    else
+                      if (book.isAvailable==false)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: MaterialButton(
+                          height: 45,
+                          minWidth: double.infinity,
+                          onPressed: () {
+                            // alarm is available
+                          },
+                          color: Colors.pink.shade400,
+                          child: const Text(
+                          "is not available!"
+                          " Notify me when available",
                           style: TextStyle(
                             color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold
+                            fontSize: 10,
+                            ),
                           ),
                         ),
                       )
-                    ],
-                  ),
-                ),
-
-                    const SizedBox(height: 15,),
-                    if (user.isSpecial==false)
-                      const Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "By purchasing a subscription"
-                              " you can use all the books for free",
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
+                      else
+                        if (user.isSpecial==true)
+                            Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 30),
+                            child: MaterialButton(
+                            height: 45,
+                            minWidth: double.infinity,
+                            onPressed: (){
+                            setState(() {
+                            book.sellNum++;
+                            List<Book> b =[];
+                            user.purchasedBooks=b;
+                            user.purchasedBooks!.add(book); // check money
+                            if (user.recentBooks==null){
+                            List<Book> x=[];
+                            user.recentBooks=x;
+                            }
+                            user.recentBooks!.add(book);
+                            }
+                            );
+                            Navigator.of(context).push(
+                            MaterialPageRoute(
+                            builder: (context) => PurchasePage(),
+                            ),
+                            );
+                            },
+                            color: Colors.pink.shade400,
+                            child:const Text(
+                            "by | free",
+                            style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            ),
+                            )
+                            ),
+                            )
+                        else
+                          if (book.special)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
+                              child: MaterialButton(
+                                height: 45,
+                                minWidth: double.infinity,
+                                onPressed: () {
+                                  //
+                                },
+                                color: Colors.pink.shade400,
+                                child: const Text(
+                                  "Buy a special subscription",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ),
+                            )
+                          else
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
+                              child: MaterialButton(
+                                height: 45,
+                                minWidth: double.infinity,
+                                onPressed: (){
+                                  setState(() {
+                                    book.sellNum++;
+                                    List<Book> b =[];
+                                    user.purchasedBooks=b;
+                                    user.purchasedBooks!.add(book); // check money
+                                    if (user.recentBooks==null){
+                                      List<Book> x=[];
+                                      user.recentBooks=x;
+                                    }
+                                    user.recentBooks!.add(book);
+                                    print(user.recentBooks!.length);
+                                  });
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => PurchasePage(),
+                                    ),
+                                  );
+                                },
+                                color: Colors.pink.shade400,
+                                child: book.isFree
+                                    ?const Text(
+                                  "by | free",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                  ),
+                                )
+                                    : Text(
+                                  "by | ${book.price} Toman",
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
                     const SizedBox(height: 20,),
                     const Align(
                       alignment: Alignment.topLeft,
@@ -326,6 +347,127 @@ class _BookInformationState extends State<BookInformation> {
                       ),
                     ),
                     const SizedBox(height: 40,),
+                      Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        "Rate this book : ${book.rate.toString()}",
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 5,),
+                    const Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        "Tell others what you think",
+                        // style: TextStyle(
+                        //     fontSize: 20,
+                        //     fontWeight: FontWeight.bold
+                        // ),
+                      ),
+                    ),
+                    const SizedBox(height: 10,),
+                    Container(
+                      color: Colors.black,
+                      height: 1,
+                    ),
+                    const SizedBox(height: 10,),
+                    ButtonBar(
+                      mainAxisSize: MainAxisSize.min,
+                      alignment: MainAxisAlignment.center,
+                      //crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              star1=Colors.yellow;
+                              if (book.numRate==0){
+                                book.numRate++;
+                                book.rate=1.0;
+                              }
+                              book.numRate++;
+                              book.rate+=book.rate/book.numRate;
+                            });
+                          },
+                          icon: Icon(Icons.star,
+                          color: star1,),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              star1=Colors.yellow;
+                              star2=Colors.yellow;
+                              if (book.numRate==0){
+                                book.numRate++;
+                                book.rate=2.0;
+                              }
+                              book.numRate++;
+                              book.rate+=book.rate/book.numRate;
+                            });
+                          },
+                          icon: Icon(Icons.star,
+                            color: star1,),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              star1=Colors.yellow;
+                              star2=Colors.yellow;
+                              star3=Colors.yellow;
+                              if (book.numRate==0){
+                                book.numRate++;
+                                book.rate=3.0;
+                              }
+                              book.numRate++;
+                              book.rate+=book.rate/book.numRate;
+                            });
+                          },
+                          icon: Icon(Icons.star,
+                            color: star1,),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              star1=Colors.yellow;
+                              star2=Colors.yellow;
+                              star3=Colors.yellow;
+                              star4=Colors.yellow;
+                              if (book.numRate==0){
+                                book.numRate++;
+                                book.rate=4.0;
+                              }
+                              book.numRate++;
+                              book.rate+=book.rate/book.numRate;
+                            });
+                          },
+                          icon: Icon(Icons.star,
+                            color: star1,),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              star1=Colors.yellow;
+                              star2=Colors.yellow;
+                              star3=Colors.yellow;
+                              star4=Colors.yellow;
+                              star5=Colors.yellow;
+                              if (book.numRate==0){
+                                book.numRate++;
+                                book.rate+=book.rate/book.numRate;
+                              }
+                              book.numRate++;
+                              book.rate=(5+book.rate)/2.0;
+                            });
+                          },
+                          icon: Icon(Icons.star,
+                            color: star1,),
+                        ),
+
+                      ],
+                    ),
+                    const SizedBox(height: 10,),
                     const Align(
                       alignment: Alignment.topLeft,
                       child: Text(
@@ -346,7 +488,7 @@ class _BookInformationState extends State<BookInformation> {
                       height: MediaQuery.of(context).size.height / 2-150,
                       child: book.comments!.isNotEmpty
                           ? ListView.builder(
-                        itemCount: book.comments!.length,
+                        itemCount: sortComment().length,
                         itemBuilder: (context,index){
                           final Comment= book.comments![index];
                           return CommentView(

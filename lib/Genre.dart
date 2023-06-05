@@ -1,7 +1,7 @@
 enum Genre{
-  scary,
+  Scary,
   Criminal,
   Romantic,
-  fantasy,
+  Fantasy,
   Academic,
 }
