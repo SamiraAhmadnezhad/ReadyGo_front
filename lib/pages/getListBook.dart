@@ -41,7 +41,7 @@ class getListBook{
       lastData: DateTime.now(),
       png: "assets/images/hary2.jpg",
       name: "hary2", author: "samira",
-      genre: Genre.Criminal,
+      genre: Genre.Scary,
       isFree: false,
       isAvailable: true,
       price: 10,
@@ -51,7 +51,8 @@ class getListBook{
       isNew: true,
       about: "ekjfhksjhgfkjdhgkjhdgrhtgdhgh",
       comments: comments,
-      like: 6
+      like: 6,
+      isAudioBook: true,
     ),
     Book(
       lastData: DateTime.now(),

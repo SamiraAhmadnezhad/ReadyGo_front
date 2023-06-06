@@ -10,20 +10,23 @@ class BookView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        IconButton(
-          //style:IconButton.styleFrom(foregroundColor: Colors.green) ,
-          icon: Image.asset(book.png,
-          // height: 100,
-          // width: 100,
+    return Container(
+      alignment: Alignment.centerLeft,
+      child: Column(
+        children: [
+          IconButton(
+            //style:IconButton.styleFrom(foregroundColor: Colors.green) ,
+            icon: Image.asset(book.png,
+            // height: 100,
+            // width: 100,
+            ),
+            iconSize: MediaQuery.of(context).size.height / 6,
+            onPressed: onTap,
+
           ),
-          iconSize: MediaQuery.of(context).size.height / 6,
-          onPressed: onTap,
-          
-        ),
-        Text(book.name)
-      ],
+          Text(book.name)
+        ],
+      ),
     );
   }
 }

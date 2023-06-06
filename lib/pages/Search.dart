@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:readygo/Book.dart';
-import 'package:readygo/BookView.dart';
+import 'package:readygo/BookView1.dart';
 import 'package:readygo/User.dart';
 import 'package:readygo/pages/BookInformation.dart';
 import 'package:readygo/pages/getListBook.dart';
@@ -39,22 +39,20 @@ class _SearchState extends State<Search> {
         ),
       ),
       body:  Container(
-        //height: 200,
-        color: Colors.pink.shade50,
         child: Column(
           children: [
             SizedBox(height: 20,),
             Container(
-              height: MediaQuery.of(context).size.height / 2-220,
+              height: MediaQuery.of(context).size.height-150,
               child: searchedBook(search).isNotEmpty
                   ? ListView.builder(
                 addAutomaticKeepAlives: true,
                 //padding:const EdgeInsets.all(8.0),
-                scrollDirection: Axis.horizontal,
+                scrollDirection: Axis.vertical,
                 itemCount: searchedBook(search).length,
                 itemBuilder: (context,index){
                   final Book=searchedBook(search)[index];
-                  return BookView(
+                  return BookView1(
                     book : Book,
                     onTap : (){
                       setState(() {

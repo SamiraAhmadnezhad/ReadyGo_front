@@ -1,5 +1,6 @@
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
+import 'package:readygo/pages/AudioBook.dart';
 import 'package:readygo/pages/Ebook.dart';
 import 'package:readygo/User.dart';
 
@@ -20,7 +21,7 @@ class _HomeState extends State<Home> {
   }
   late List<Widget> tabItems = [
     Ebook(user: user),
-    Ebook(user: user),
+    AudioBook(user: user),
   ];
   @override
   Widget build(BuildContext context) {

@@ -19,7 +19,9 @@ class Book{
   int like=0;
   int numRate=0;
   double rate=0.0;
+  bool isAudioBook=false;
   Book({
+    this.isAudioBook=false,
     required this.png,
     required this.lastData,
     required this.name,

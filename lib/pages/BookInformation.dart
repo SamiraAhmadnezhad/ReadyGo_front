@@ -32,13 +32,11 @@ class _BookInformationState extends State<BookInformation> {
       return true;
     else if (books!.isEmpty)
       return true;
-    else {
-      for (Book b in books){
-        if (b==book);
-        return false;
-      }
-      return true;
+    for (Book b in books){
+      if (b==book)
+      return false;
     }
+    return true;
   }
   List<Comment> sortComment (){
     book.comments!.sort((a, b) => b.like.compareTo(a.like));
@@ -117,19 +115,29 @@ class _BookInformationState extends State<BookInformation> {
                           onPressed: (){
                             setState(() {
                               user.recentBooks!.remove(book);
+                              print(checkNull(user.purchasedBooks));
                             });
                           },
                           color: Colors.pink.shade400,
                           height: 45,
                           minWidth: double.infinity,
-                          child: const Text(
+                          child: book.isAudioBook
+                            ?const Text(
+                            "I have heard",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold
+                            ),
+                          )
+                              :const Text(
                             "I have read",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold
                             ),
-                          ),
+                          )
                         ),
                         const SizedBox(height: 15,),
                         MaterialButton(
@@ -183,8 +191,10 @@ class _BookInformationState extends State<BookInformation> {
                             onPressed: (){
                             setState(() {
                             book.sellNum++;
-                            List<Book> b =[];
-                            user.purchasedBooks=b;
+                            if (user.purchasedBooks==null){
+                              List<Book> b =[];
+                              user.purchasedBooks=b;
+                            }
                             user.purchasedBooks!.add(book); // check money
                             if (user.recentBooks==null){
                             List<Book> x=[];
@@ -238,15 +248,17 @@ class _BookInformationState extends State<BookInformation> {
                                 onPressed: (){
                                   setState(() {
                                     book.sellNum++;
-                                    List<Book> b =[];
-                                    user.purchasedBooks=b;
+                                    if (user.purchasedBooks==null){
+                                      List<Book> y=[];
+                                      user.purchasedBooks=y;
+                                    }
                                     user.purchasedBooks!.add(book); // check money
                                     if (user.recentBooks==null){
                                       List<Book> x=[];
                                       user.recentBooks=x;
                                     }
                                     user.recentBooks!.add(book);
-                                    print(user.recentBooks!.length);
+                                  // print(user.purchasedBooks!.length);
                                   });
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
@@ -330,9 +342,13 @@ class _BookInformationState extends State<BookInformation> {
                       title: const Text(
                           "Format"
                       ),
-                      trailing: const Text (
-                          "Pdf"
-                      ),
+                      trailing: book.isAudioBook
+                        ?const Text (
+                          "mp3"
+                      )
+                          :const Text (
+                          "pdf"
+                      )
                     ),
                     ListTile(
                       //focusColor: Colors.cyanAccent,
@@ -387,8 +403,10 @@ class _BookInformationState extends State<BookInformation> {
                                 book.numRate++;
                                 book.rate=1.0;
                               }
-                              book.numRate++;
-                              book.rate+=book.rate/book.numRate;
+                              else{
+                                book.numRate++;
+                                book.rate=(book.rate+1)/book.numRate;
+                              }
                             });
                           },
                           icon: Icon(Icons.star,
@@ -403,12 +421,14 @@ class _BookInformationState extends State<BookInformation> {
                                 book.numRate++;
                                 book.rate=2.0;
                               }
-                              book.numRate++;
-                              book.rate+=book.rate/book.numRate;
+                              else{
+                                book.numRate++;
+                                book.rate=(book.rate+2)/book.numRate;
+                              }
                             });
                           },
                           icon: Icon(Icons.star,
-                            color: star1,),
+                            color: star2,),
                         ),
                         IconButton(
                           onPressed: () {
@@ -420,12 +440,14 @@ class _BookInformationState extends State<BookInformation> {
                                 book.numRate++;
                                 book.rate=3.0;
                               }
-                              book.numRate++;
-                              book.rate+=book.rate/book.numRate;
+                              else{
+                                book.numRate++;
+                                book.rate=(book.rate+3)/book.numRate;
+                              }
                             });
                           },
                           icon: Icon(Icons.star,
-                            color: star1,),
+                            color: star3,),
                         ),
                         IconButton(
                           onPressed: () {
@@ -438,12 +460,14 @@ class _BookInformationState extends State<BookInformation> {
                                 book.numRate++;
                                 book.rate=4.0;
                               }
-                              book.numRate++;
-                              book.rate+=book.rate/book.numRate;
+                              else{
+                                book.numRate++;
+                                book.rate=(book.rate+4)/book.numRate;
+                              }
                             });
                           },
                           icon: Icon(Icons.star,
-                            color: star1,),
+                            color: star4,),
                         ),
                         IconButton(
                           onPressed: () {
@@ -457,12 +481,14 @@ class _BookInformationState extends State<BookInformation> {
                                 book.numRate++;
                                 book.rate+=book.rate/book.numRate;
                               }
-                              book.numRate++;
-                              book.rate=(5+book.rate)/2.0;
+                              else{
+                                book.numRate++;
+                                book.rate=(book.rate+5)/book.numRate;
+                              }
                             });
                           },
                           icon: Icon(Icons.star,
-                            color: star1,),
+                            color: star5,),
                         ),
 
                       ],

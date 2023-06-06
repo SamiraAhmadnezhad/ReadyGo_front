@@ -20,11 +20,20 @@ class _EbookState extends State<Ebook> {
     super.initState();
   }
   User user;
+  List<Book> listEBook (List<Book> books){
+    List<Book> result=[];
+    for (Book b in  books){
+      if (b.isAudioBook==false)
+        result.add(b);
+    }
+    return result;
+  }
 
   List<Book> newBook (List<Book> books){
     List<Book> result=[];
     for (Book b in books){
       if (b.isNew==true){
+        if (b.isAudioBook==false)
         result.add(b);
       }
     }
@@ -34,6 +43,7 @@ class _EbookState extends State<Ebook> {
     List<Book> result=[];
     for (Book b in books){
       if (b.sellNum>10){ // num of the best sell can change
+        if (b.isAudioBook==false)
         result.add(b);
       }
     }
@@ -63,9 +73,9 @@ class _EbookState extends State<Ebook> {
                     child: user.recentBooks!=null
                     ? ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: user.recentBooks!.length,
+                      itemCount:listEBook(user.recentBooks!).length,
                       itemBuilder: (context,index){
-                        final Book=user.recentBooks![index];
+                        final Book=listEBook(user.recentBooks!)![index];
                         return BookView(
                           book : Book,
                           onTap : (){
@@ -111,9 +121,9 @@ class _EbookState extends State<Ebook> {
                     child: user.favoriteBooks!=null
                         ? ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: user.favoriteBooks!.length,
+                      itemCount: listEBook(user.favoriteBooks!).length,
                       itemBuilder: (context,index){
-                        final Book=user.favoriteBooks![index];
+                        final Book=listEBook(user.favoriteBooks!)[index];
                         return BookView(
                           book : Book,
                           onTap : (){
@@ -155,12 +165,12 @@ class _EbookState extends State<Ebook> {
                   SizedBox(height: 10,),
                   Container(
                     height: MediaQuery.of(context).size.height / 2-220,
-                    child: newBook(getListBook.books).isNotEmpty
+                    child: newBook(listEBook(getListBook.books)).isNotEmpty
                         ? ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: newBook(getListBook.books).length,
+                      itemCount: newBook(listEBook(getListBook.books)).length,
                       itemBuilder: (context,index){
-                        final Book= newBook(getListBook.books)[index];
+                        final Book= newBook(listEBook(getListBook.books))[index];
                         return BookView(
                           book : Book,
                           onTap : (){
@@ -203,14 +213,14 @@ class _EbookState extends State<Ebook> {
                   SizedBox(height: 10,),
                   Container(
                     height: MediaQuery.of(context).size.height / 2-220,
-                    child: TopSellingBook(getListBook.books).isNotEmpty
+                    child: TopSellingBook(listEBook(getListBook.books)).isNotEmpty
                         ? ListView.builder(
                       addAutomaticKeepAlives: true,
                       //padding:const EdgeInsets.all(8.0),
                       scrollDirection: Axis.horizontal,
-                      itemCount: TopSellingBook(getListBook.books).length,
+                      itemCount: TopSellingBook(listEBook(getListBook.books)).length,
                       itemBuilder: (context,index){
-                        final Book=TopSellingBook(getListBook.books)[index];
+                        final Book=TopSellingBook(listEBook(getListBook.books))[index];
                         return BookView(
                           book : Book,
                           onTap : (){

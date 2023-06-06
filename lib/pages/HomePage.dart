@@ -37,7 +37,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: Icon(Icons.flutter_dash_sharp,
+                color: Colors.white,
+            size: 40,),
             onPressed: () => Navigator.of(context).pop(),
           ),
           backgroundColor: Colors.pink.shade600,
@@ -49,6 +51,7 @@ class _HomePageState extends State<HomePage> {
               color: Colors.white,
             ),
           ),
+
         ),
         body: Center(
           child: tabItems[_selectedIndex],
