@@ -55,12 +55,6 @@ class _ShopState extends State<Shop> {
           backgroundColor: Colors.grey.shade300,
           title: TextFormField(
             decoration: const InputDecoration(
-              // icon: Align(
-              //   child: Icon(Icons.abc,
-              //     color: Colors.black,
-              //     size: 40,),
-              // ),
-              //labelText: 'email*',
               hintText: 'What are you looking for?',
             ),
             onChanged: (String search){
@@ -104,8 +98,6 @@ class _ShopState extends State<Shop> {
                           child: Text(items),
                         );
                       }).toList(),
-                      // After selecting the desired option,it will
-                      // change button value to selected value
                       onChanged: (String? newValue) {
                         setState(() {
                           dropdownvalue = newValue!;
@@ -140,7 +132,7 @@ class _ShopState extends State<Shop> {
                             "All",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                              //fontSize: 20,
                             ),
                           ),
                         ],
@@ -171,7 +163,7 @@ class _ShopState extends State<Shop> {
                             "Criminal",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                              //fontSize: 20,
                             ),
                           )
                         ],
@@ -206,7 +198,7 @@ class _ShopState extends State<Shop> {
                             "Fantasy",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                              //fontSize: 20,
                             ),
                           ),
                         ],
@@ -237,7 +229,7 @@ class _ShopState extends State<Shop> {
                             "Academic",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                              //fontSize: 20,
                             ),
                           )
                         ],
@@ -272,7 +264,7 @@ class _ShopState extends State<Shop> {
                             "Romantic",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                              //fontSize: 20,
                             ),
                           ),
                         ],
@@ -303,7 +295,7 @@ class _ShopState extends State<Shop> {
                             "Scary",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                              //fontSize: 20,
                             ),
                           )
                         ],

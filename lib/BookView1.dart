@@ -36,6 +36,7 @@ class BookView1 extends StatelessWidget {
                         fontSize: 20,
                       ),),
                       const SizedBox(width: 10,),
+                      if (book.special)
                       Icon(Icons.diamond_outlined,
                       color: Colors.blue,)
                     ],

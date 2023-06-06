@@ -1,9 +1,6 @@
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 import 'package:readygo/pages/Account.dart';
-import 'package:readygo/Book.dart';
-import 'package:readygo/Comment.dart';
-import 'package:readygo/Genre.dart';
 import 'package:readygo/pages/Home.dart';
 import 'package:readygo/pages/Library.dart';
 import 'package:readygo/pages/Shop.dart';
@@ -23,7 +20,7 @@ class _HomePageState extends State<HomePage> {
     Home(user: user),
    Library(user: user,),
     Shop(user: user,),
-    Account(),
+    Account(user: user,),
   ];
   int _selectedIndex = 0;
   @override
@@ -36,12 +33,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.flutter_dash_sharp,
+          leading: Icon(Icons.flutter_dash_sharp,
                 color: Colors.white,
             size: 40,),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
+          //onPressed: () => Navigator.of(context).pop(),
           backgroundColor: Colors.pink.shade600,
           title: const Text(
             "ReadyGo ",

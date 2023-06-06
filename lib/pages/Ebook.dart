@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:readygo/Book.dart';
 import 'package:readygo/BookView.dart';
-import 'package:readygo/Comment.dart';
-import 'package:readygo/Genre.dart';
 import 'package:readygo/User.dart';
 import 'package:readygo/pages/BookInformation.dart';
 import 'package:readygo/pages/getListBook.dart';
@@ -56,7 +54,7 @@ class _EbookState extends State<Ebook> {
         child: Column(
           children: [
             Container(
-              color: Colors.white,
+              //color: Colors.white,
               child: Column(
                 children: [
                   SizedBox(height: 20,),
@@ -152,7 +150,7 @@ class _EbookState extends State<Ebook> {
 
 
             Container(
-              color: Colors.white,
+              //color: Colors.white,
               child: Column(
                 children: [
                   SizedBox(height: 20,),

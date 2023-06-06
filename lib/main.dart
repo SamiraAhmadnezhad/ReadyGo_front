@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:readygo/User.dart';
 import 'package:readygo/pages/HomePage.dart';
 import 'package:readygo/pages/SingUp.dart';
+import 'package:readygo/pages/appTheme.dart';
 void main() {
   runApp( MaterialApp(
+    theme: appTheme.myTheme,
     debugShowCheckedModeBanner: false,
     home: Login(),
   )
   );
 }
+
 class Login extends StatefulWidget{
   const Login({super.key});
 

@@ -5,7 +5,6 @@ import 'package:readygo/Book.dart';
 import 'package:readygo/Comment.dart';
 import 'package:readygo/CommentView.dart';
 import 'package:readygo/User.dart';
-import 'package:readygo/pages/PurchasePage.dart';
 
 class BookInformation extends StatefulWidget {
   const BookInformation({super.key,required this.user,required this.book});
@@ -189,25 +188,22 @@ class _BookInformationState extends State<BookInformation> {
                             height: 45,
                             minWidth: double.infinity,
                             onPressed: (){
-                            setState(() {
-                            book.sellNum++;
-                            if (user.purchasedBooks==null){
-                              List<Book> b =[];
-                              user.purchasedBooks=b;
-                            }
-                            user.purchasedBooks!.add(book); // check money
-                            if (user.recentBooks==null){
-                            List<Book> x=[];
-                            user.recentBooks=x;
-                            }
-                            user.recentBooks!.add(book);
-                            }
-                            );
-                            Navigator.of(context).push(
-                            MaterialPageRoute(
-                            builder: (context) => PurchasePage(),
-                            ),
-                            );
+                              setState(() {
+                                if (user.money>=book.price){
+                                  user.money-=book.price;
+                                  book.sellNum++;
+                                  if (user.purchasedBooks==null){
+                                    List<Book> y=[];
+                                    user.purchasedBooks=y;
+                                  }
+                                  user.purchasedBooks!.add(book); // check money
+                                  if (user.recentBooks==null){
+                                    List<Book> x=[];
+                                    user.recentBooks=x;
+                                  }
+                                  user.recentBooks!.add(book);
+                                }
+                              });
                             },
                             color: Colors.pink.shade400,
                             child:const Text(
@@ -247,24 +243,21 @@ class _BookInformationState extends State<BookInformation> {
                                 minWidth: double.infinity,
                                 onPressed: (){
                                   setState(() {
-                                    book.sellNum++;
-                                    if (user.purchasedBooks==null){
-                                      List<Book> y=[];
-                                      user.purchasedBooks=y;
+                                    if (user.money>=book.price){
+                                      user.money-=book.price;
+                                      book.sellNum++;
+                                      if (user.purchasedBooks==null){
+                                        List<Book> y=[];
+                                        user.purchasedBooks=y;
+                                      }
+                                      user.purchasedBooks!.add(book); // check money
+                                      if (user.recentBooks==null){
+                                        List<Book> x=[];
+                                        user.recentBooks=x;
+                                      }
+                                      user.recentBooks!.add(book);
                                     }
-                                    user.purchasedBooks!.add(book); // check money
-                                    if (user.recentBooks==null){
-                                      List<Book> x=[];
-                                      user.recentBooks=x;
-                                    }
-                                    user.recentBooks!.add(book);
-                                  // print(user.purchasedBooks!.length);
                                   });
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) => PurchasePage(),
-                                    ),
-                                  );
                                 },
                                 color: Colors.pink.shade400,
                                 child: book.isFree
@@ -335,8 +328,6 @@ class _BookInformationState extends State<BookInformation> {
                       ),
                     ),
                     ListTile(
-                      //focusColor: Colors.cyanAccent,
-                      //selectedColor: Colors.blue,
                       tileColor: Colors.pink.shade100,
                       leading: Icon(Icons.picture_as_pdf),
                       title: const Text(
