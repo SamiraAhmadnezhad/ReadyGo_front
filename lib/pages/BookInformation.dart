@@ -175,7 +175,7 @@ class _BookInformationState extends State<BookInformation> {
                           " Notify me when available",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 10,
+                            fontSize: 15,
                             ),
                           ),
                         ),
@@ -230,7 +230,7 @@ class _BookInformationState extends State<BookInformation> {
                                   "Buy a special subscription",
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 10,
+                                    fontSize: 15,
                                   ),
                                 ),
                               ),

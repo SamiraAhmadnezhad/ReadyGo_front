@@ -34,7 +34,7 @@ class _LibraryState extends State<Library> {
         return user.purchasedBooks;
       }
       case 'most liked':{
-        user.purchasedBooks!.sort((a, b) => a.like.compareTo(b.like));
+        user.purchasedBooks!.sort((a, b) => b.rate.compareTo(a.rate));
         return user.purchasedBooks;
       }
       case 'E-book':{

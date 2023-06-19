@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flashy_tab_bar2: ^0.0.6
   image_picker: ^0.8.7+5
+  flutter_rating_stars: ^1.0.3+4
 
 dev_dependencies:
   flutter_test:

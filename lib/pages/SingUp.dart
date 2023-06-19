@@ -36,108 +36,110 @@ class _SingUpState extends State<SingUp> {
             ),
           ),
         ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text(
-              'Sing Up',
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-                color: Colors.purple,
+      body: Form(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                'Sing Up',
+                style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.purple,
+                ),
               ),
-            ),
-            const SizedBox(height: 30),
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'user name*',
-                hintText: 'enter user name',
-                prefixIcon: Icon(Icons.person),
-              ),
-              validator: (String? username){
-                if (username==null) {
-                  return "please enter user name!";
-                }
-                // other thing
-              },
-              onChanged: (String username){
-                setState(() {
-                  this.username=username;
-                });
-              },
-            ),
-            const SizedBox(height: 30),
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'email*',
-                hintText: 'enter email',
-                prefixIcon: Icon(Icons.email),
-              ),
-              validator: (String? email){
-                if (email==null) {
-                  return "please enter email!";
-                }
-                // other thing
-              },
-              onChanged: (String email){
-                setState(() {
-                  this.email=email;
-                });
-              },
-            ),
-            const SizedBox(height: 30),
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'password*',
-                hintText: 'enter password',
-                prefixIcon: Icon(Icons.lock),
-              ),
-              validator: (String? password){
-                if (password==null) {
-                  return "please enter password!";
-                }
-                // other thing
-              },
-              onChanged: (String password){
-                setState(() {
-                  this.password=password;
-                });
-              },
-            ),
-            const SizedBox(height: 30),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: MaterialButton(
-                minWidth: double.infinity,
-                onPressed: (){
-                  //check pass and email
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => HomePage(
-                        user: User(
-                        password: password,
-                        email: email,
-                        isSpecial: false,
-                        money: 0,
-                        username: 'Asghar',
-                      ),
-                      ),
-                    ),
-                  );
+              const SizedBox(height: 30),
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'user name*',
+                  hintText: 'enter user name',
+                  prefixIcon: Icon(Icons.person),
+                ),
+                validator: (username){
+                  if (username==null) {
+                    return "please enter user name!";
+                  }
+                  // other thing
                 },
-                color: Colors.purple,
-                child: const Text(
-                  'login',
-                  style: TextStyle(
-                    color: Colors.white,
+                onChanged: (String username){
+                  setState(() {
+                    this.username=username;
+                  });
+                },
+              ),
+              const SizedBox(height: 30),
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'email*',
+                  hintText: 'enter email',
+                  prefixIcon: Icon(Icons.email),
+                ),
+                validator: (String? email){
+                  if (email==null) {
+                    return "please enter email!";
+                  }
+                  // other thing
+                },
+                onChanged: (String email){
+                  setState(() {
+                    this.email=email;
+                  });
+                },
+              ),
+              const SizedBox(height: 30),
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'password*',
+                  hintText: 'enter password',
+                  prefixIcon: Icon(Icons.lock),
+                ),
+                validator: (String? password){
+                  if (password==null) {
+                    return "please enter password!";
+                  }
+                  // other thing
+                },
+                onChanged: (String password){
+                  setState(() {
+                    this.password=password;
+                  });
+                },
+              ),
+              const SizedBox(height: 30),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: MaterialButton(
+                  minWidth: double.infinity,
+                  onPressed: (){
+                    //check pass and email
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => HomePage(
+                          user: User(
+                          password: password,
+                          email: email,
+                          isSpecial: false,
+                          money: 0,
+                          username: 'Asghar',
+                        ),
+                        ),
+                      ),
+                    );
+                  },
+                  color: Colors.purple,
+                  child: const Text(
+                    'Sing Up',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

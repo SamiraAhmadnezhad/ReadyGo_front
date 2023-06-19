@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:readygo/User.dart';
 import 'package:readygo/pages/PurchasePage.dart';
-import 'package:readygo/pages/appTheme.dart';
 import 'package:readygo/pages/editProfile.dart';
+import 'package:readygo/main.dart';
 
 class Account extends StatefulWidget {
   final User user;
@@ -19,17 +19,6 @@ class _AccountState extends State<Account> {
   PickedFile? _imageFile;
   final ImagePicker _picker=ImagePicker();
   User user;
-  String dropdownvalue = 'Light';
-  var items = [
-    'Light',
-    'Dark'
-  ];
-  void theme(String dropdownvalue){
-    if (dropdownvalue=='Light')
-      appTheme.myTheme=ThemeData.light();
-    else
-      appTheme.myTheme=ThemeData.dark();
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,38 +44,6 @@ class _AccountState extends State<Account> {
                   if (user.isSpecial)
                     Icon(Icons.diamond_outlined,color: Colors.blue,)
                 ],
-              ),
-              const SizedBox(height: 20,),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Row(
-                  children: [
-                    Text("Theme : ",
-                      style: TextStyle(
-                        fontSize: 17,
-                      ),),
-                    SizedBox(width: 10,),
-                    DropdownButton(
-                      value: dropdownvalue,
-                      icon: const Icon(Icons.format_list_numbered_rtl ),
-                      items: items.map((String items) {
-                        return DropdownMenuItem(
-                          value: items,
-                          child: Text(items),
-                        );
-                      }).toList(),
-                      // After selecting the desired option,it will
-                      // change button value to selected value
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownvalue = newValue!;
-                          theme(dropdownvalue);
-                        });
-                      },
-
-                    ),
-                  ],
-                ),
               ),
               ListTile(
                 tileColor: Colors.white,
@@ -198,7 +155,7 @@ class _AccountState extends State<Account> {
                           Icon(Icons.diamond_outlined),
                           SizedBox(width: 10,),
                           Text(
-                            "Buy a special subscription",
+                            "Special subscription",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               //fontSize: 20,
@@ -243,7 +200,11 @@ class _AccountState extends State<Account> {
                   width: MediaQuery.of(context).size.width*3/12,
                   child: MaterialButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => Login(),
+                        ),
+                      );
                     },
                     color: Colors.red.shade500,
                     height: 35,

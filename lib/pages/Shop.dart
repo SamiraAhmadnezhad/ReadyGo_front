@@ -42,7 +42,7 @@ class _ShopState extends State<Shop> {
         break;
       }
       case 'most liked':{
-        shopBook.sort((a, b) => a.like.compareTo(b.like));
+        shopBook.sort((a, b) => b.rate.compareTo(a.rate));
         break;
       }
     }

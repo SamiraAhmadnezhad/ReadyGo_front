@@ -13,15 +13,15 @@ class getListBook{
         " be placed at (72.0, 96.0) - (36.0, 48.0) "
         "= (36.0, 48.0) from the top left of"
         " the Align widget.", dislike: 0, like: 4, nameUser: "reza"),
-    Comment(commentMassage: "very good", dislike: 2, like: 0, nameUser: "sina"),
-    Comment(commentMassage: "very good", dislike: 0, like: 0, nameUser: "sara"),
+    Comment(commentMassage: "very good", dislike: 2, like: 5, nameUser: "sina"),
+    Comment(commentMassage: "very good", dislike: 0, like: 4, nameUser: "sara"),
   ];
   static List<Comment> comEmaty=[];
   static late List<Book> books=[
     Book(
       lastData: DateTime.now(),
       png: "assets/images/hary1.jpg",
-      name: "hary2", author: "samira",
+      name: "Harry Potter 1", author: "J. K. Rowling",
       genre: Genre.Criminal,
       isFree: true,
       isAvailable: true,
@@ -40,7 +40,7 @@ class getListBook{
     Book(
       lastData: DateTime.now(),
       png: "assets/images/hary2.jpg",
-      name: "hary2", author: "samira",
+      name: "Harry Potter 2", author: "J. K. Rowling",
       genre: Genre.Scary,
       isFree: false,
       isAvailable: true,
@@ -57,7 +57,7 @@ class getListBook{
     Book(
       lastData: DateTime.now(),
       png: "assets/images/hary3.jpg",
-      name: "hary3", author: "samira",
+        name: "Harry Potter 3", author: "J. K. Rowling",
       genre: Genre.Criminal,
       isFree: true,
       isAvailable: false,
@@ -73,7 +73,7 @@ class getListBook{
     Book(
       lastData: DateTime.now(),
       png: "assets/images/hary4.jpg",
-      name: "hary4", author: "samira",
+        name: "Harry Potter 4", author: "J. K. Rowling",
       genre: Genre.Criminal,
       isFree: true,
       isAvailable: true,
@@ -82,9 +82,58 @@ class getListBook{
       year: 1383,
       sellNum: 20,
       isNew: true,
-      about: "ekjfhksjhgfkjdhgkjhdgrhtgdhgh",
+      about: "Harry Potter is a series of seven fantasy novels written by British author J. K. Rowling. The novels chronicle the lives of a young wizard, Harry Potter, and his friends Hermione Granger and Ron Weasley, all of whom are students at Hogwarts School of Witchcraft and Wizardry",
       comments: comEmaty,
       like: 10
+    ),
+    Book(
+        lastData: DateTime.now(),
+        png: "assets/images/hary5.jpg",
+        name: "Harry Potter 5", author: "J. K. Rowling",
+        genre: Genre.Romantic,
+        isFree: false,
+        isAvailable: true,
+        price: 20,
+        special: false,
+        year: 1383,
+        sellNum: 19,
+        isNew: false,
+        about: "ekjfhksjhgfkjdhgkjhdgrhtgdhgh",
+        comments: comments,
+        like: 8
+    ),
+    Book(
+        lastData: DateTime.now(),
+        png: "assets/images/hary6.jpg",
+        name: "Harry Potter 6", author: "J. K. Rowling",
+        genre: Genre.Romantic,
+        isFree: false,
+        isAvailable: true,
+        price: 0,
+        special: true,
+        year: 1383,
+        sellNum: 20,
+        isNew: false,
+        about: "ekjfhksjhgfkjdhgkjhdgrhtgdhgh",
+        comments: comments,
+        like: 12
+    ),
+    Book(
+        lastData: DateTime.now(),
+        png: "assets/images/hary7.jpg",
+        name: "Harry Potter 7", author: "J. K. Rowling",
+        genre: Genre.Academic,
+        isFree: false,
+        isAvailable: true,
+        price: 20,
+        special: false,
+        year: 1383,
+        sellNum: 20,
+        isNew: false,
+        about: "ekjfhksjhgfkjdhgkjhdgrhtgdhgh",
+        comments: comments,
+        like: 12,
+      isAudioBook: true,
     ),
   ];
 }

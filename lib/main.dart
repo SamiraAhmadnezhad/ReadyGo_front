@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:readygo/User.dart';
 import 'package:readygo/pages/HomePage.dart';
 import 'package:readygo/pages/SingUp.dart';
-import 'package:readygo/pages/appTheme.dart';
+import 'package:readygo/pages/myTheme.dart';
 void main() {
   runApp( MaterialApp(
-    theme: appTheme.myTheme,
-    debugShowCheckedModeBanner: false,
-    home: Login(),
-  )
-  );
+      debugShowCheckedModeBanner:false,
+      home: Login()) );
 }
-
 class Login extends StatefulWidget{
   const Login({super.key});
 
@@ -29,7 +25,10 @@ class _LoginPageState extends State<Login> {
   String password="";
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: myTheme.iconBool ? myTheme.lightThemeData(context) : myTheme.darkThemeData(context),
+      home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.deepPurple,
           title: const Text(
@@ -156,6 +155,7 @@ class _LoginPageState extends State<Login> {
             ],
           ),
         ),
-      );
+      ),
+    );
   }
 }

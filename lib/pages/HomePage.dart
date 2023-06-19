@@ -5,6 +5,7 @@ import 'package:readygo/pages/Home.dart';
 import 'package:readygo/pages/Library.dart';
 import 'package:readygo/pages/Shop.dart';
 import 'package:readygo/User.dart';
+import 'package:readygo/pages/myTheme.dart';
 
 class HomePage extends StatefulWidget{
   const HomePage( {super.key, required this.user});
@@ -31,77 +32,90 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          leading: Icon(Icons.flutter_dash_sharp,
-                color: Colors.white,
-            size: 40,),
-          //onPressed: () => Navigator.of(context).pop(),
-          backgroundColor: Colors.pink.shade600,
-          title: const Text(
-            "ReadyGo ",
-            style: TextStyle(
-              //fontWeight: FontWeight.bold,
-              fontSize: 20,
-              color: Colors.white,
-            ),
-          ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: myTheme.iconBool ? myTheme.lightThemeData(context) : myTheme.darkThemeData(context),
+      home: Scaffold(
+            appBar: AppBar(
+              actions: [
+                IconButton(icon: Icon(myTheme.iconBool ? myTheme.iconDark : myTheme.iconLight),
+                    onPressed: () {
+                      setState(() {
+                        myTheme.iconBool = !myTheme.iconBool;
+                      });
+                    }
+                )
+              ],
+              leading: Icon(Icons.flutter_dash_sharp,
+                    color: Colors.white,
+                size: 40,),
+              //onPressed: () => Navigator.of(context).pop(),
+              backgroundColor: Colors.pink.shade600,
+              title: const Text(
+                "ReadyGo ",
+                style: TextStyle(
+                  //fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+              ),
 
-        ),
-        body: Center(
-          child: tabItems[_selectedIndex],
-        ),
-        bottomNavigationBar: FlashyTabBar(
-          backgroundColor: Colors.grey.shade300,
-          animationCurve: Curves.linear,
-          selectedIndex: _selectedIndex,
-          iconSize: 20,
-          showElevation: true,
-          height: 55,
-          onItemSelected: (index) =>
-              setState(() {
-                _selectedIndex = index;
-              }),
-          items: [
-            FlashyTabBarItem(
-              inactiveColor: Colors.black,
-              activeColor: Colors.black,
-              icon: Icon(
-                Icons.home,
-                color: Colors.pink.shade800,
-              ),
-              title: Text('Home'),
             ),
-            FlashyTabBarItem(
-              inactiveColor: Colors.black,
-              activeColor: Colors.black,
-              icon: Icon(
-                Icons.library_books,
-                color: Colors.pink.shade800,
-              ),
-              title: Text('Library'),
+            body: Center(
+              child: tabItems[_selectedIndex],
             ),
-            FlashyTabBarItem(
-              inactiveColor: Colors.black,
-              activeColor: Colors.black,
-              icon: Icon(
-                Icons.shop,
-                color: Colors.pink.shade800,
-              ),
-              title: Text('Shop'),
-            ),
-            FlashyTabBarItem(
-              inactiveColor: Colors.black,
-              activeColor: Colors.black,
-              icon: Icon(
-                Icons.account_box,
-                color: Colors.pink.shade800,
-              ),
-              title: Text('Account'),
-            ),
-          ],
+            bottomNavigationBar: FlashyTabBar(
+              backgroundColor: Colors.grey.shade300,
+              animationCurve: Curves.linear,
+              selectedIndex: _selectedIndex,
+              iconSize: 20,
+              showElevation: true,
+              height: 55,
+              onItemSelected: (index) =>
+                  setState(() {
+                    _selectedIndex = index;
+                  }),
+              items: [
+                FlashyTabBarItem(
+                  inactiveColor: Colors.black,
+                  activeColor: Colors.black,
+                  icon: Icon(
+                    Icons.home,
+                    color: Colors.pink.shade800,
+                  ),
+                  title: Text('خانه'),
+                ),
+                FlashyTabBarItem(
+                  inactiveColor: Colors.black,
+                  activeColor: Colors.black,
+                  icon: Icon(
+                    Icons.library_books,
+                    color: Colors.pink.shade800,
+                  ),
+                  title: Text('کتابخونه'),
+                ),
+                FlashyTabBarItem(
+                  inactiveColor: Colors.black,
+                  activeColor: Colors.black,
+                  icon: Icon(
+                    Icons.shopping_cart_outlined,
+                    color: Colors.pink.shade800,
+                  ),
+                  title: Text('فروشگاه'),
+                ),
+                FlashyTabBarItem(
+                  inactiveColor: Colors.black,
+                  activeColor: Colors.black,
+                  icon: Icon(
+                    Icons.settings,
+                    color: Colors.pink.shade800,
+                  ),
+                  title: Text('تنظیمات'),
+                ),
+              ],
 
-        )
+            )
+      ),
     );
   }
 }
