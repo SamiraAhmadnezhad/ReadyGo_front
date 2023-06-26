@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:readygo/User.dart';
 import 'package:readygo/pages/HomePage.dart';
@@ -104,18 +106,20 @@ class _LoginPageState extends State<Login> {
                 child: MaterialButton(
                   minWidth: double.infinity,
                   onPressed: (){
+                    print(email);
+                    checkLogin(email);
                     //check pass and email
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => HomePage( user: User(
-                          password: password,
-                          email: email,
-                          isSpecial: false,
-                          money: 0,
-                          username: 'akbar',
-                        ),),
-                      ),
-                    );
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute(
+                    //     builder: (context) => HomePage( user: User(
+                    //       password: password,
+                    //       email: email,
+                    //       isSpecial: false,
+                    //       money: 0,
+                    //       username: 'akbar',
+                    //     ),),
+                    //   ),
+                    // );
                   },
                   color: Colors.deepPurple,
                   child: const Text(
@@ -157,5 +161,17 @@ class _LoginPageState extends State<Login> {
         ),
       ),
     );
+  }
+  checkLogin(String email) async{
+
+    String request="send\nmassage:hello every one,,me:sam\u0000";
+
+    await Socket.connect("192.168.1.102", 8000).then((serverSocket){
+      serverSocket.write(request);
+      serverSocket.flush();
+      serverSocket.listen((response) {
+        print(String.fromCharCodes(response));
+      });
+    });
   }
 }

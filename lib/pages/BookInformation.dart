@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:readygo/Book.dart';
 import 'package:readygo/Comment.dart';
 import 'package:readygo/CommentView.dart';
@@ -381,108 +382,23 @@ class _BookInformationState extends State<BookInformation> {
                       height: 1,
                     ),
                     const SizedBox(height: 10,),
-                    ButtonBar(
-                      mainAxisSize: MainAxisSize.min,
-                      alignment: MainAxisAlignment.center,
-                      //crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              star1=Colors.yellow;
-                              if (book.numRate==0){
-                                book.numRate++;
-                                book.rate=1.0;
-                              }
-                              else{
-                                book.numRate++;
-                                book.rate=(book.rate+1)/book.numRate;
-                              }
-                            });
-                          },
-                          icon: Icon(Icons.star,
-                          color: star1,),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              star1=Colors.yellow;
-                              star2=Colors.yellow;
-                              if (book.numRate==0){
-                                book.numRate++;
-                                book.rate=2.0;
-                              }
-                              else{
-                                book.numRate++;
-                                book.rate=(book.rate+2)/book.numRate;
-                              }
-                            });
-                          },
-                          icon: Icon(Icons.star,
-                            color: star2,),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              star1=Colors.yellow;
-                              star2=Colors.yellow;
-                              star3=Colors.yellow;
-                              if (book.numRate==0){
-                                book.numRate++;
-                                book.rate=3.0;
-                              }
-                              else{
-                                book.numRate++;
-                                book.rate=(book.rate+3)/book.numRate;
-                              }
-                            });
-                          },
-                          icon: Icon(Icons.star,
-                            color: star3,),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              star1=Colors.yellow;
-                              star2=Colors.yellow;
-                              star3=Colors.yellow;
-                              star4=Colors.yellow;
-                              if (book.numRate==0){
-                                book.numRate++;
-                                book.rate=4.0;
-                              }
-                              else{
-                                book.numRate++;
-                                book.rate=(book.rate+4)/book.numRate;
-                              }
-                            });
-                          },
-                          icon: Icon(Icons.star,
-                            color: star4,),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              star1=Colors.yellow;
-                              star2=Colors.yellow;
-                              star3=Colors.yellow;
-                              star4=Colors.yellow;
-                              star5=Colors.yellow;
-                              if (book.numRate==0){
-                                book.numRate++;
-                                book.rate+=book.rate/book.numRate;
-                              }
-                              else{
-                                book.numRate++;
-                                book.rate=(book.rate+5)/book.numRate;
-                              }
-                            });
-                          },
-                          icon: Icon(Icons.star,
-                            color: star5,),
-                        ),
-
-                      ],
+                    RatingBar.builder(
+                      initialRating: 3,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (rating) {
+                        setState(() {
+                          book.numRate++;
+                          book.rate+=(rating/book.numRate);
+                        });
+                      },
                     ),
                     const SizedBox(height: 10,),
                     const Align(

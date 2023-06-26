@@ -10,6 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba60b276-1b8d-4dae-9e96-8fb3b8052a15" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/BookInformation.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/BookInformation.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/myTheme.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/myTheme.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
