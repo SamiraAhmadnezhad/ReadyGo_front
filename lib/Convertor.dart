@@ -1,3 +1,5 @@
+
+import 'package:readygo/Comment.dart';
 import "package:readygo/Book.dart";
 import "package:readygo/Genre.dart";
 import "package:readygo/User.dart";
@@ -22,8 +24,10 @@ class Convertor {
         return result;
     }
     static List<Book> stringToBook(String books){
+        //print(books);
         List<Book> result= [];
-        List<String> elements=books.split(",,");
+        List<String> elements=books.split("**");
+        //print(elements[0]);
         for (String ss in elements){
             List<String> s=ss.split("&&");
             Book b=Book(
@@ -42,8 +46,26 @@ class Convertor {
                 like: int.parse(s[12]),
                 rate: double.parse(s[13]),
                 isAudioBook: boolparse(s[14]),
+                comments: stringToComment(s[15]),
             );
             result.add(b);
+        }
+        return result;
+    }
+    static List<Comment> stringToComment (String comments){
+        print(comments);
+        List<Comment> result=[];
+        List<String> elements=comments.split("--");
+        print(elements[0]);
+        for (String ss in elements){
+            List<String> s=ss.split("##");
+            Comment c= Comment(
+                nameUser: s[0],
+                commentMassage: s[1],
+                like: int.parse(s[2]),
+                dislike: int.parse(s[3]),
+            );
+            result.add(c);
         }
         return result;
     }

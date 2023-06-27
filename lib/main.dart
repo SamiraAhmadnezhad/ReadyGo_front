@@ -3,12 +3,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:readygo/Convertor.dart';
-import 'package:readygo/User.dart';
 import 'package:readygo/pages/HomePage.dart';
 import 'package:readygo/pages/SingUp.dart';
 import 'package:readygo/pages/getListBook.dart';
 import 'package:readygo/pages/myTheme.dart';
-import 'package:string_scanner/string_scanner.dart';
 void main() {
   runApp( MaterialApp(
       debugShowCheckedModeBanner:false,
@@ -78,6 +76,10 @@ class _LoginPageState extends State<Login> {
                 },
                 onChanged: (String email){
                   setState(() {
+                    if (!email.contains("@"))
+                      massage='do not use the @ char.';
+                    else
+                      massage="";
                     this.email=email;
                     //print(this.email);
                   });
@@ -100,6 +102,10 @@ class _LoginPageState extends State<Login> {
                 },
                 onChanged: (String pass){
                   setState(() {
+                    if (pass.length<8)
+                      massage='password should be 8 charecter';
+                    else
+                      massage="";
                     this.password=pass;
                     //print(this.password);
                   });
@@ -112,6 +118,7 @@ class _LoginPageState extends State<Login> {
                   minWidth: double.infinity,
                   onPressed: (){
                     giveAllBooks();
+                    checkLogin(email, password);
                   },
                   color: Colors.deepPurple,
                   child: const Text(
@@ -157,41 +164,50 @@ class _LoginPageState extends State<Login> {
     );
   }
   giveAllBooks() async {
-    String request = "giveAllBooks\n\u0000";
+    String request = "giveAllBooks\n \u0000";
     await Socket.connect("192.168.1.102", 8000).then((serverSocket) {
       serverSocket.write(request);
       serverSocket.flush();
+      print("start");
       serverSocket.listen((response) {
         setState(() {
           print(String.fromCharCodes(response));
-          // getListBook.books = Convertor.stringToBook(String.fromCharCodes(response));
+          getListBook.books = Convertor.stringToBook(String.fromCharCodes(response));
         });
       });
     });
-    checkLogin(email,password);
   }
   checkLogin(String email,String pass) async {
-    String request = "checkLogin\n$email,,$pass\u0000";
-    await Socket.connect("192.168.1.102", 8000).then((serverSocket) {
-      serverSocket.write(request);
-      serverSocket.flush();
-      serverSocket.listen((response) {
-        List<String> list = LineSplitter().convert(
-            String.fromCharCodes(response));
-        setState(() {
-          massage = list[0];
-        });
-        if (massage == "Login successfully") {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) =>
-                  HomePage(
-                      user: Convertor.stringToUser(list[1])
-                  ),
-            ),
-          );
-        }
+    if (pass.length<8 || !email.contains("@"))
+      setState(() {
+        massage="some thing is wrong!";
       });
-    });
+    else{
+      String request = "checkLogin\n$email,,$pass\u0000";
+      await Socket.connect("192.168.1.102", 8000).then((serverSocket) {
+        serverSocket.write(request);
+        serverSocket.flush();
+        serverSocket.listen((response) {
+          print(String.fromCharCodes(response));
+          List<String> list = LineSplitter().convert(String.fromCharCodes(response));
+          setState(() {
+            massage=list[0];
+          });
+          if (massage == "Login successfully") {
+            String data='';
+            for (String s in LineSplitter().convert(list[1]))
+              data+=s;
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) =>
+                    HomePage(
+                        user: Convertor.stringToUser(data)
+                    ),
+              ),
+            );
+          }
+        });
+      });
+    }
   }
 }
