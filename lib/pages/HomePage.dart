@@ -46,10 +46,12 @@ class _HomePageState extends State<HomePage> {
                     }
                 )
               ],
-              leading: Icon(Icons.flutter_dash_sharp,
-                    color: Colors.white,
-                size: 40,),
-              //onPressed: () => Navigator.of(context).pop(),
+              leading: IconButton(
+                icon: Icon(Icons.flutter_dash_sharp,
+                      color: Colors.white,
+                  size: 40,),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
               backgroundColor: Colors.pink.shade600,
               title: const Text(
                 "ReadyGo ",

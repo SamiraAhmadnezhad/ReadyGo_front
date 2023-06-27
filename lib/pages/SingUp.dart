@@ -1,6 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:readygo/Book.dart';
 import 'package:readygo/Comment.dart';
+import 'package:readygo/Convertor.dart';
 import 'package:readygo/Genre.dart';
 import 'package:readygo/User.dart';
 import 'package:readygo/pages/HomePage.dart';
@@ -15,6 +19,7 @@ class _SingUpState extends State<SingUp> {
   void initState() {
     super.initState();
   }
+  String massage='';
   String username="";
   String password="";
   String email="";
@@ -115,19 +120,7 @@ class _SingUpState extends State<SingUp> {
                   minWidth: double.infinity,
                   onPressed: (){
                     //check pass and email
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => HomePage(
-                          user: User(
-                          password: password,
-                          email: email,
-                          isSpecial: false,
-                          money: 0,
-                          username: 'Asghar',
-                        ),
-                        ),
-                      ),
-                    );
+                    checkSingUp(email,password,username);
                   },
                   color: Colors.purple,
                   child: const Text(
@@ -138,10 +131,35 @@ class _SingUpState extends State<SingUp> {
                   ),
                 ),
               ),
+              SizedBox(height: 20,),
+              Text(massage),
             ],
           ),
         ),
       ),
     );
+  }
+
+  checkSingUp(String email,String pass,String username) async{
+    String request="checkSingUp\n$email,,$pass,,$username\u0000";
+    await Socket.connect("192.168.1.102", 8000).then((serverSocket){
+      serverSocket.write(request);
+      serverSocket.flush();
+      serverSocket.listen((response) {
+        List<String> list=LineSplitter().convert(String.fromCharCodes(response));
+        setState(() {
+          massage=list[0];
+        });
+        if (massage=="Sing up successfully"){
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => HomePage(
+                user: Convertor.stringToUser(list[1])
+              ),
+            ),
+          );
+        }
+      });
+    });
   }
 }

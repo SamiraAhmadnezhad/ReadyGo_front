@@ -200,7 +200,7 @@ class _AccountState extends State<Account> {
                   width: MediaQuery.of(context).size.width*3/12,
                   child: MaterialButton(
                     onPressed: () {
-                      Navigator.of(context).push(
+                      Navigator.of(context).pop(
                         MaterialPageRoute(
                           builder: (context) => Login(),
                         ),

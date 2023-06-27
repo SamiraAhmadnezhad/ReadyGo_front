@@ -2,7 +2,6 @@ import 'package:readygo/Comment.dart';
 import 'package:readygo/Genre.dart';
 
 class Book{
-  DateTime lastData;
   List<Comment>? comments;
   String png='';
   String name="";
@@ -23,7 +22,6 @@ class Book{
   Book({
     this.isAudioBook=false,
     required this.png,
-    required this.lastData,
     required this.name,
     required this.author,
     required this.genre,

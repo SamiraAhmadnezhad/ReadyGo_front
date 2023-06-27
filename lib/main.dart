@@ -6,6 +6,7 @@ import 'package:readygo/Convertor.dart';
 import 'package:readygo/User.dart';
 import 'package:readygo/pages/HomePage.dart';
 import 'package:readygo/pages/SingUp.dart';
+import 'package:readygo/pages/getListBook.dart';
 import 'package:readygo/pages/myTheme.dart';
 import 'package:string_scanner/string_scanner.dart';
 void main() {
@@ -110,7 +111,7 @@ class _LoginPageState extends State<Login> {
                 child: MaterialButton(
                   minWidth: double.infinity,
                   onPressed: (){
-                    checkLogin(email,password);
+                    giveAllBooks();
                   },
                   color: Colors.deepPurple,
                   child: const Text(
@@ -155,22 +156,38 @@ class _LoginPageState extends State<Login> {
       ),
     );
   }
-  checkLogin(String email,String pass) async{
-    String request="checkLogin\n$email,,$pass\u0000";
-    await Socket.connect("192.168.1.102", 8000).then((serverSocket){
+  giveAllBooks() async {
+    String request = "giveAllBooks\n\u0000";
+    await Socket.connect("192.168.1.102", 8000).then((serverSocket) {
       serverSocket.write(request);
       serverSocket.flush();
       serverSocket.listen((response) {
-        List<String> list=LineSplitter().convert(String.fromCharCodes(response));
         setState(() {
-          massage=list[0];
+          print(String.fromCharCodes(response));
+          // getListBook.books = Convertor.stringToBook(String.fromCharCodes(response));
         });
-        if (massage=="Login successfully"){
+      });
+    });
+    checkLogin(email,password);
+  }
+  checkLogin(String email,String pass) async {
+    String request = "checkLogin\n$email,,$pass\u0000";
+    await Socket.connect("192.168.1.102", 8000).then((serverSocket) {
+      serverSocket.write(request);
+      serverSocket.flush();
+      serverSocket.listen((response) {
+        List<String> list = LineSplitter().convert(
+            String.fromCharCodes(response));
+        setState(() {
+          massage = list[0];
+        });
+        if (massage == "Login successfully") {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => HomePage(
-                user: Convertor.stringToUser(list[1])
-              ),
+              builder: (context) =>
+                  HomePage(
+                      user: Convertor.stringToUser(list[1])
+                  ),
             ),
           );
         }
