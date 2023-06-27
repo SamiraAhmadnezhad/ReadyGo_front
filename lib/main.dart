@@ -1,10 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:readygo/Convertor.dart';
 import 'package:readygo/User.dart';
 import 'package:readygo/pages/HomePage.dart';
 import 'package:readygo/pages/SingUp.dart';
 import 'package:readygo/pages/myTheme.dart';
+import 'package:string_scanner/string_scanner.dart';
 void main() {
   runApp( MaterialApp(
       debugShowCheckedModeBanner:false,
@@ -18,6 +21,7 @@ class Login extends StatefulWidget{
 }
 
 class _LoginPageState extends State<Login> {
+  String massage="";
   //final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
@@ -106,20 +110,7 @@ class _LoginPageState extends State<Login> {
                 child: MaterialButton(
                   minWidth: double.infinity,
                   onPressed: (){
-                    print(email);
-                    checkLogin(email);
-                    //check pass and email
-                    // Navigator.of(context).push(
-                    //   MaterialPageRoute(
-                    //     builder: (context) => HomePage( user: User(
-                    //       password: password,
-                    //       email: email,
-                    //       isSpecial: false,
-                    //       money: 0,
-                    //       username: 'akbar',
-                    //     ),),
-                    //   ),
-                    // );
+                    checkLogin(email,password);
                   },
                   color: Colors.deepPurple,
                   child: const Text(
@@ -156,21 +147,33 @@ class _LoginPageState extends State<Login> {
                 ),
                 color: Colors.deepPurple,
               ),
+              SizedBox(height: 20,),
+              Text(massage)
             ],
           ),
         ),
       ),
     );
   }
-  checkLogin(String email) async{
-
-    String request="send\nmassage:hello every one,,me:sam\u0000";
-
+  checkLogin(String email,String pass) async{
+    String request="checkLogin\n$email,,$pass\u0000";
     await Socket.connect("192.168.1.102", 8000).then((serverSocket){
       serverSocket.write(request);
       serverSocket.flush();
       serverSocket.listen((response) {
-        print(String.fromCharCodes(response));
+        List<String> list=LineSplitter().convert(String.fromCharCodes(response));
+        setState(() {
+          massage=list[0];
+        });
+        if (massage=="Login successfully"){
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => HomePage(
+                user: Convertor.stringToUser(list[1])
+              ),
+            ),
+          );
+        }
       });
     });
   }
