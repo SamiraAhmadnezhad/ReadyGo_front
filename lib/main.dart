@@ -176,6 +176,7 @@ class _LoginPageState extends State<Login> {
     setState(() {
       getListBook.books=Convertor.stringToBook(res);
     });
+    print(res+"\n");
     print (getListBook.books);
   }
     checkLogin(String email,String pass) async {

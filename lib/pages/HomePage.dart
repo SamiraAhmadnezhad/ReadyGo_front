@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                     Icons.home,
                     color: Colors.pink.shade800,
                   ),
-                  title: Text('خانه'),
+                  title: Text('Home'),
                 ),
                 FlashyTabBarItem(
                   inactiveColor: Colors.black,
@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                     Icons.library_books,
                     color: Colors.pink.shade800,
                   ),
-                  title: Text('کتابخونه'),
+                  title: Text('Library'),
                 ),
                 FlashyTabBarItem(
                   inactiveColor: Colors.black,
@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                     Icons.shopping_cart_outlined,
                     color: Colors.pink.shade800,
                   ),
-                  title: Text('فروشگاه'),
+                  title: Text('Shop'),
                 ),
                 FlashyTabBarItem(
                   inactiveColor: Colors.black,
@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                     Icons.settings,
                     color: Colors.pink.shade800,
                   ),
-                  title: Text('تنظیمات'),
+                  title: Text('Setting'),
                 ),
               ],
 
