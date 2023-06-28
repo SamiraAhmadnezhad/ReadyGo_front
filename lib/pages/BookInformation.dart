@@ -1,10 +1,13 @@
 
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:readygo/Book.dart';
 import 'package:readygo/Comment.dart';
 import 'package:readygo/CommentView.dart';
+import 'package:readygo/Convertor.dart';
 import 'package:readygo/User.dart';
 
 class BookInformation extends StatefulWidget {
@@ -205,6 +208,7 @@ class _BookInformationState extends State<BookInformation> {
                                   user.recentBooks!.add(book);
                                 }
                               });
+                              byBook(user.username,Convertor.userToString(user));
                             },
                             color: Colors.pink.shade400,
                             child:const Text(
@@ -259,6 +263,7 @@ class _BookInformationState extends State<BookInformation> {
                                       user.recentBooks!.add(book);
                                     }
                                   });
+                                  byBook(user.username,Convertor.userToString(user));
                                 },
                                 color: Colors.pink.shade400,
                                 child: book.isFree
@@ -491,5 +496,19 @@ class _BookInformationState extends State<BookInformation> {
               ),
             ),
     );
+  }
+  byBook(String username,String user) async {
+    print("start");
+    String res='';
+    String request = "byBook\n$username!!!$user\u0000";
+    var socket = await Socket.connect("192.168.1.102", 8000);
+    socket.write(request);
+    socket.flush();
+    print("start1");
+    var subscription =socket.listen((response) {
+      print("start2");
+      res=String.fromCharCodes(response);
+    });
+    await subscription.asFuture<void>();
   }
 }

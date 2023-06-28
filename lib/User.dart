@@ -19,7 +19,7 @@ class User{
   String bySubscription;
 User({
   this.subscription=0,
-  this.bySubscription='0000/00/00',
+  this.bySubscription='',
   this.studentNumber='',
   this.age='',
   this.name='',

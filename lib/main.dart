@@ -170,14 +170,12 @@ class _LoginPageState extends State<Login> {
     socket.write(request);
     socket.flush();
     var subscription =socket.listen((response) {
-      res=String.fromCharCodes(response);
+      res+=String.fromCharCodes(response);
     });
     await subscription.asFuture<void>();
     setState(() {
-      getListBook.books=Convertor.stringToBook(res);
+      getListBook.books=Convertor.stringToBook(res)!;
     });
-    print(res+"\n");
-    print (getListBook.books);
   }
     checkLogin(String email,String pass) async {
     String res='';
@@ -192,7 +190,7 @@ class _LoginPageState extends State<Login> {
         socket.write(request);
         socket.flush();
         var subscription =socket.listen((response) {
-          res=String.fromCharCodes(response);
+          res+=String.fromCharCodes(response);
         });
         await subscription.asFuture<void>();
         List<String> list = LineSplitter().convert(res);
@@ -200,14 +198,11 @@ class _LoginPageState extends State<Login> {
           massage=list[0];
         });
       if (massage == "Login successfully") {
-        String data='';
-        for (String s in LineSplitter().convert(list[1]))
-          data+=s;
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) =>
                 HomePage(
-                    user: Convertor.stringToUser(data)
+                    user: Convertor.stringToUser(list[1])
                 ),
           ),
         );
