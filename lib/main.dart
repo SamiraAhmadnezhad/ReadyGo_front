@@ -164,50 +164,53 @@ class _LoginPageState extends State<Login> {
     );
   }
   giveAllBooks() async {
+    String res='';
     String request = "giveAllBooks\n \u0000";
-    await Socket.connect("192.168.1.102", 8000).then((serverSocket) {
-      serverSocket.write(request);
-      serverSocket.flush();
-      print("start");
-      serverSocket.listen((response) {
-        setState(() {
-          print(String.fromCharCodes(response));
-          getListBook.books = Convertor.stringToBook(String.fromCharCodes(response));
-        });
-      });
+    var socket = await Socket.connect("192.168.1.102", 8000);
+    socket.write(request);
+    socket.flush();
+    var subscription =socket.listen((response) {
+      res=String.fromCharCodes(response);
     });
+    await subscription.asFuture<void>();
+    setState(() {
+      getListBook.books=Convertor.stringToBook(res);
+    });
+    print (getListBook.books);
   }
-  checkLogin(String email,String pass) async {
+    checkLogin(String email,String pass) async {
+    String res='';
     if (pass.length<8 || !email.contains("@"))
       setState(() {
-        massage="some thing is wrong!";
+        massage= "some thing is wrong!";
       });
+
     else{
       String request = "checkLogin\n$email,,$pass\u0000";
-      await Socket.connect("192.168.1.102", 8000).then((serverSocket) {
-        serverSocket.write(request);
-        serverSocket.flush();
-        serverSocket.listen((response) {
-          print(String.fromCharCodes(response));
-          List<String> list = LineSplitter().convert(String.fromCharCodes(response));
-          setState(() {
-            massage=list[0];
-          });
-          if (massage == "Login successfully") {
-            String data='';
-            for (String s in LineSplitter().convert(list[1]))
-              data+=s;
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) =>
-                    HomePage(
-                        user: Convertor.stringToUser(data)
-                    ),
-              ),
-            );
-          }
+      var socket = await Socket.connect("192.168.1.102", 8000);
+        socket.write(request);
+        socket.flush();
+        var subscription =socket.listen((response) {
+          res=String.fromCharCodes(response);
         });
-      });
+        await subscription.asFuture<void>();
+        List<String> list = LineSplitter().convert(res);
+        setState(() {
+          massage=list[0];
+        });
+      if (massage == "Login successfully") {
+        String data='';
+        for (String s in LineSplitter().convert(list[1]))
+          data+=s;
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) =>
+                HomePage(
+                    user: Convertor.stringToUser(data)
+                ),
+          ),
+        );
+      }
     }
   }
 }

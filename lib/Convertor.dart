@@ -29,7 +29,10 @@ class Convertor {
         List<String> elements=books.split("**");
         //print(elements[0]);
         for (String ss in elements){
+            if (ss=='')
+                continue;
             List<String> s=ss.split("&&");
+            // print(s);
             Book b=Book(
                 png: s[3],
                 name: s[0],
@@ -53,12 +56,11 @@ class Convertor {
         return result;
     }
     static List<Comment> stringToComment (String comments){
-        print(comments);
         List<Comment> result=[];
         List<String> elements=comments.split("--");
-        print(elements[0]);
         for (String ss in elements){
             List<String> s=ss.split("##");
+            // print(s);
             Comment c= Comment(
                 nameUser: s[0],
                 commentMassage: s[1],
