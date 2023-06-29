@@ -23,15 +23,23 @@ class _PurchasePageState extends State<PurchasePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Payment Page')),
+      appBar: AppBar(title: const Text('Payment Page'),
+      backgroundColor: Colors.pink,),
       body: Center(
         child: Column(
           children: [
             SizedBox(height: 40,),
             Image.asset("assets/images/credit card.jpg"),
             SizedBox(height: 40,),
+            Text(amount.toString()+" Toman",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+              fontSize: 30
+            ),),
+            SizedBox(height: 40,),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 70),
               child: TextFormField(
                 decoration: const InputDecoration(
                   labelText: 'password*',
@@ -46,50 +54,56 @@ class _PurchasePageState extends State<PurchasePage> {
                 },
                 onChanged: (String pass){
                   setState(() {
-                    if (pass==user.password)
+                    if (pass==user.studentNumber.substring(5))
                     permision=true;
                   });
                 },
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 30,),
             Container(
-              width: MediaQuery.of(context).size.width/2,
+              width: MediaQuery.of(context).size.width/3,
               child: MaterialButton(
                 onPressed: (){
+                  //print(user.studentNumber.substring(6));
                   setState(() {
                     if (checkSpesial && permision) {
                       user.isSpecial = true;
                       changeUser(user.username,Convertor.userToString(user));
-                      Navigator.of(context).pop();
+                      massage="payment successful!";
                     } else if (permision) {
                       user.money += amount;
                       changeUser(user.username,Convertor.userToString(user));
-                      Navigator.of(context).pop();
+                      massage="payment successful!";
                     } else
                       massage="Password incorrect!";
                   });
                 },
-                color: Colors.pink.shade400,
+                color: Colors.pink,
                 height: 35,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: const [
-                    Icon(Icons.credit_card),
+                    Icon(Icons.credit_card,
+                    color: Colors.white,),
                     SizedBox(width: 10,),
                     Text(
                       "pay",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        //fontSize: 20,
+                        color: Colors.white,
+                        fontSize: 20,
                       ),
                     )
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 20,),
-            Text(massage)
+            SizedBox(height: 30,),
+            Text(massage,
+            style: TextStyle(
+              fontSize: 20
+            ),)
           ],
         ),
       ),
