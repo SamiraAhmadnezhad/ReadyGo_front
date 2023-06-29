@@ -3,6 +3,7 @@ import 'package:readygo/Comment.dart';
 import "package:readygo/Book.dart";
 import "package:readygo/Genre.dart";
 import "package:readygo/User.dart";
+import "package:readygo/pages/getListBook.dart";
 class Convertor {
     static User stringToUser(String user){
         List<String> elements=user.split(",,");
@@ -18,10 +19,27 @@ class Convertor {
             field: elements[5],
             studentNumber: elements[6],
             profilePhoto: elements[9],
-            favoriteBooks: stringToBook(elements[10]),
-            recentBooks: stringToBook(elements[11]),
-            // purchasedBooks: stringToBook(elements[12]),
+            favoriteBooks: stringToBookUser(elements[10]),
+            recentBooks: stringToBookUser(elements[11]),
+            purchasedBooks: stringToBookUser(elements[12]),
         );
+        return result;
+    }
+    static List<Book>? stringToBookUser(String books){
+        List<Book> result= [];
+        if (books.isEmpty || books==null || books==" ")
+            return null;
+        List<String> elements=books.split("**");
+        for (String ss in elements){
+            if (ss=='' )
+                continue;
+            List<String> s=ss.split("&&");
+            for (Book b in getListBook.books) {
+                if (b.name==s[0] && b.author==s[1])
+                    result.add(b);
+            }
+        }
+        print(result);
         return result;
     }
     static List<Book>? stringToBook(String books){

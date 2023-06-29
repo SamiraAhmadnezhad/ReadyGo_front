@@ -356,12 +356,9 @@ class _AccountState extends State<Account> {
               SizedBox(width: 20,),
               IconButton(
                 onPressed: (){
-                  setState(() {
-                    user.money+=int.parse(money);
-                  });
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                        builder: (context) => PurchasePage(user: user,amount: int.parse(money))),
+                        builder: (context) => PurchasePage(user: user,amount: int.parse(money),checkSpesial: false,)),
                   );
                 },
                 icon: Icon(Icons.done_outline),
@@ -398,12 +395,9 @@ class _AccountState extends State<Account> {
                 child: MaterialButton(
                   minWidth: double.infinity,
                   onPressed: (){
-                    setState(() {
-                      user.isSpecial=true;
-                    });
                     Navigator.of(context).push(
                     MaterialPageRoute(
-                    builder: (context) => PurchasePage(user: user)),
+                    builder: (context) => PurchasePage(user: user,amount: 60,checkSpesial: true,)),
                     );
                   },
                   color: Colors.pink.shade400,
@@ -429,12 +423,9 @@ class _AccountState extends State<Account> {
                 width: MediaQuery.of(context).size.width/2,
                 child: MaterialButton(
                   onPressed: (){
-                    setState(() {
-                      user.isSpecial=true;
-                    });
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                          builder: (context) => PurchasePage(user: user)),
+                          builder: (context) => PurchasePage(user: user,amount: 150,checkSpesial: true,)),
                     );
                   },
                   color: Colors.pink.shade400,
@@ -460,12 +451,9 @@ class _AccountState extends State<Account> {
                 width: MediaQuery.of(context).size.width/2,
                 child: MaterialButton(
                   onPressed: (){
-                    setState(() {
-                      user.isSpecial=true;
-                    });
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                          builder: (context) => PurchasePage(user: user)),
+                          builder: (context) => PurchasePage(user: user,amount: 280,checkSpesial: true,)),
                     );
                   },
                   color: Colors.pink.shade400,
