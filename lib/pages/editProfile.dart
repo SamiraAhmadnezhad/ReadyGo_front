@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:readygo/Convertor.dart';
 import 'package:readygo/User.dart';
 
 class editProfile extends StatefulWidget {
@@ -11,11 +14,11 @@ class editProfile extends StatefulWidget {
 class _editProfileState extends State<editProfile> {
   _editProfileState({required this.user});
   User user;
-  String name='';
-  String age='';
-  String field='';
-  String studentNumber='';
-  String email='';
+  late String name=user.name;
+  late String age=user.age;
+  late String field=user.field;
+  late String studentNumber=user.studentNumber;
+  late String email=user.email;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +46,7 @@ class _editProfileState extends State<editProfile> {
               ),
               onChanged: (String name){
                 setState(() {
+                  if (name!="")
                   this.name=name;
                 });
               },
@@ -55,6 +59,7 @@ class _editProfileState extends State<editProfile> {
               ),
               onChanged: (String age){
                 setState(() {
+                  if (age!="")
                   this.age=age;
                 });
               },
@@ -67,6 +72,7 @@ class _editProfileState extends State<editProfile> {
               ),
               onChanged: (String field){
                 setState(() {
+                  if (field!="")
                   this.field=field;
                 });
               },
@@ -79,6 +85,7 @@ class _editProfileState extends State<editProfile> {
               ),
               onChanged: (String number){
                 setState(() {
+                  if (number!="")
                   this.studentNumber=number;
                 });
               },
@@ -91,6 +98,7 @@ class _editProfileState extends State<editProfile> {
               ),
               onChanged: (String email){
                 setState(() {
+                  if (email!="")
                   this.email=email;
                 });
               },
@@ -109,6 +117,7 @@ class _editProfileState extends State<editProfile> {
                     user.age=age;
                     user.name=name;
                   });
+                  changeUser(user.username,Convertor.userToString(user));
                   Navigator.of(context).pop();
                 }
             )
@@ -116,5 +125,16 @@ class _editProfileState extends State<editProfile> {
         ),
       ),
     );
+  }
+  changeUser (String username,String user) async {
+    String res='';
+    String request = "changeUser\n$username!!!$user\u0000";
+    var socket = await Socket.connect("192.168.1.102", 8000);
+    socket.write(request);
+    socket.flush();
+    var subscription =socket.listen((response) {
+      res=String.fromCharCodes(response);
+    });
+    await subscription.asFuture<void>();
   }
 }

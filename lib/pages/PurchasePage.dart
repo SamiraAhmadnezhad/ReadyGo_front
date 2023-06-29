@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:readygo/Convertor.dart';
 import 'package:readygo/User.dart';
 
 class PurchasePage extends StatefulWidget {
@@ -15,7 +18,8 @@ class _PurchasePageState extends State<PurchasePage> {
   User user;
   int amount;
   bool checkSpesial;
-  String pass='';
+  bool permision=false;
+  String massage='';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,35 +27,47 @@ class _PurchasePageState extends State<PurchasePage> {
       body: Center(
         child: Column(
           children: [
+            SizedBox(height: 40,),
             Image.asset("assets/images/credit card.jpg"),
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'password*',
-                hintText: 'enter password',
-                prefixIcon: Icon(Icons.lock),
+            SizedBox(height: 40,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'password*',
+                  hintText: 'enter password',
+                  prefixIcon: Icon(Icons.lock),
+                ),
+                validator: (String? password){
+                  if (password==null) {
+                    return "please enter amount!";
+                  }
+                  // other thing
+                },
+                onChanged: (String pass){
+                  setState(() {
+                    if (pass==user.password)
+                    permision=true;
+                  });
+                },
               ),
-              validator: (String? password){
-                if (password==null) {
-                  return "please enter amount!";
-                }
-                // other thing
-              },
-              onChanged: (String pass){
-                setState(() {
-                  if (pass==user.password)
-                  user.money+=amount;
-                });
-              },
             ),
+            SizedBox(height: 20,),
             Container(
               width: MediaQuery.of(context).size.width/2,
               child: MaterialButton(
                 onPressed: (){
                   setState(() {
-                    if (checkSpesial)
-                      user.isSpecial=true;
-                    else
-                      user.money+=amount;
+                    if (checkSpesial && permision) {
+                      user.isSpecial = true;
+                      changeUser(user.username,Convertor.userToString(user));
+                      Navigator.of(context).pop();
+                    } else if (permision) {
+                      user.money += amount;
+                      changeUser(user.username,Convertor.userToString(user));
+                      Navigator.of(context).pop();
+                    } else
+                      massage="Password incorrect!";
                   });
                 },
                 color: Colors.pink.shade400,
@@ -72,9 +88,22 @@ class _PurchasePageState extends State<PurchasePage> {
                 ),
               ),
             ),
+            SizedBox(height: 20,),
+            Text(massage)
           ],
         ),
       ),
     );
+  }
+  changeUser (String username,String user) async {
+    String res='';
+    String request = "changeUser\n$username!!!$user\u0000";
+    var socket = await Socket.connect("192.168.1.102", 8000);
+    socket.write(request);
+    socket.flush();
+    var subscription =socket.listen((response) {
+      res=String.fromCharCodes(response);
+    });
+    await subscription.asFuture<void>();
   }
 }

@@ -200,7 +200,7 @@ class _AccountState extends State<Account> {
                   width: MediaQuery.of(context).size.width*3/12,
                   child: MaterialButton(
                     onPressed: () {
-                      Navigator.of(context).pop(
+                      Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => Login(),
                         ),
@@ -314,8 +314,10 @@ class _AccountState extends State<Account> {
     );
     setState(() {
       _imageFile= pickedFile;
-      if (_imageFile!=null)
-        user.profilePhoto=_imageFile!.path;
+      if (_imageFile!=null) {
+        user.profilePhoto = _imageFile!.path;
+        
+      }
     });
   }
   String money='';
@@ -480,4 +482,5 @@ class _AccountState extends State<Account> {
       ),
     );
   }
+
 }

@@ -7,7 +7,6 @@ import "package:readygo/pages/getListBook.dart";
 class Convertor {
     static User stringToUser(String user){
         List<String> elements=user.split(",,");
-        print(stringToBook(elements[11]));
         User result=User(
             email: elements[1],
             password: elements[2],
@@ -39,7 +38,6 @@ class Convertor {
                     result.add(b);
             }
         }
-        print(result);
         return result;
     }
     static List<Book>? stringToBook(String books){
@@ -71,7 +69,6 @@ class Convertor {
             );
             result.add(b);
         }
-        print(result);
         return result;
     }
     static List<Comment> stringToComment (String comments){
@@ -83,7 +80,6 @@ class Convertor {
             if (ss=='' )
                 continue;
             List<String> s=ss.split("##");
-            // print(s);
             Comment c= Comment(
                 nameUser: s[0],
                 commentMassage: s[1],
@@ -96,10 +92,10 @@ class Convertor {
     }
     static String userToString (User user){
         String result='';
-        result+=user.username+",,"+user.password+",,"+user.email+",,"+user.name+",,"+user.age+",,"+user.field+",,"+user.studentNumber+",,"+user.money.toString()+",,"+boolToString(user.isSpecial)+",,"+user.profilePhoto+",,"+bookToString(user.favoriteBooks)+',,'+bookToString(user.recentBooks)+",,"+bookToString(user.purchasedBooks)+",,";
+        result+=user.username+",,"+user.email+",,"+user.password+",,"+user.name+",,"+user.age+",,"+user.field+",,"+user.studentNumber+",,"+user.money.toString()+",,"+boolToString(user.isSpecial)+",,"+user.profilePhoto+",,"+booksToString(user.favoriteBooks)+',,'+booksToString(user.recentBooks)+",,"+booksToString(user.purchasedBooks)+",,";
         return result;
     }
-    static String bookToString (List<Book>? book){
+    static String booksToString (List<Book>? book){
         String result='';
         if (book==null || book.isEmpty)
             return " ";
@@ -108,12 +104,20 @@ class Convertor {
         }
         return result;
     }
+    static String bookToString (Book b){
+        String result='';
+        if (b==null)
+            return " ";
+        result+=b.name+"&&"+b.author+"&&"+genreToString(b.genre)+"&&"+b.png+"&&"+boolToString(b.isFree)+"&&"+boolToString(b.special)+"&&"+b.price.toString()+"&&"+b.year.toString()+"&&"+boolToString(b.isAvailable)+"&&"+b.sellNum.toString()+"&&"+boolToString(b.isNew)+"&&"+b.about+"&&"+b.like.toString()+"&&"+b.rate.toString()+"&&"+boolToString(b.isAudioBook)+"&&"+commentToString(b.comments)+"&&";
+        print(result);
+        return result;
+    }
     static String commentToString (List<Comment>? comment){
         String result='';
         if (comment==null|| comment.isEmpty)
             return " ";
         for (Comment c in comment!){
-            result+=c.nameUser+"##"+c.commentMassage+"##"+c.like.toString()+"##"+c.dislike.toString()+"##__";
+            result+=c.nameUser+"##"+c.commentMassage+"##"+c.like.toString()+"##"+c.dislike.toString()+"##--";
         }
         return result;
     }

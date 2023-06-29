@@ -73,6 +73,7 @@ class _BookInformationState extends State<BookInformation> {
                     user.favoriteBooks!.add(book);
                   book.like++;
                 });
+                changeUser(user.username,Convertor.userToString(user));
               },
               icon: Icon(Icons.favorite,
                 color: favorite,
@@ -208,7 +209,7 @@ class _BookInformationState extends State<BookInformation> {
                                   user.recentBooks!.add(book);
                                 }
                               });
-                              byBook(user.username,Convertor.userToString(user));
+                              changeUser(user.username,Convertor.userToString(user));
                             },
                             color: Colors.pink.shade400,
                             child:const Text(
@@ -263,7 +264,7 @@ class _BookInformationState extends State<BookInformation> {
                                       user.recentBooks!.add(book);
                                     }
                                   });
-                                  byBook(user.username,Convertor.userToString(user));
+                                  changeUser(user.username,Convertor.userToString(user));
                                 },
                                 color: Colors.pink.shade400,
                                 child: book.isFree
@@ -486,6 +487,7 @@ class _BookInformationState extends State<BookInformation> {
                                   book.comments ??= x;
                                   book.comments?.add(Comment(commentMassage: thisUserComment, nameUser: user.username));
                                 });
+                                changeBook(book.name,book.author,Convertor.bookToString(book));
                               },
                             )
                         )
@@ -497,10 +499,21 @@ class _BookInformationState extends State<BookInformation> {
             ),
     );
   }
-  byBook(String username,String user) async {
+  changeUser (String username,String user) async {
+    String res='';
+    String request = "changeUser\n$username!!!$user\u0000";
+    var socket = await Socket.connect("192.168.1.102", 8000);
+    socket.write(request);
+    socket.flush();
+    var subscription =socket.listen((response) {
+      res=String.fromCharCodes(response);
+    });
+    await subscription.asFuture<void>();
+  }
+  changeBook (String name,String uother,String book) async {
     print("start");
     String res='';
-    String request = "byBook\n$username!!!$user\u0000";
+    String request = "changeBook\n$name&&$uother!!!$book\u0000";
     var socket = await Socket.connect("192.168.1.102", 8000);
     socket.write(request);
     socket.flush();
