@@ -11,6 +11,7 @@ import 'package:readygo/Convertor.dart';
 import 'package:readygo/User.dart';
 import 'package:readygo/pages/PdfReader.dart';
 import 'package:pdfx/pdfx.dart';
+import 'package:readygo/pages/mp3Player.dart';
 
 class BookInformation extends StatefulWidget {
   const BookInformation({super.key,required this.user,required this.book});
@@ -153,7 +154,7 @@ class _BookInformationState extends State<BookInformation> {
                             print("start");
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => PdfReader()
+                                builder: (context) => mp3Player()
                               ),
                             );
                           },
