@@ -121,6 +121,7 @@ class _BookInformationState extends State<BookInformation> {
                               user.recentBooks!.remove(book);
                               print(checkNull(user.purchasedBooks));
                             });
+                            changeUser(user.username,Convertor.userToString(user));
                           },
                           color: Colors.pink.shade400,
                           height: 45,
@@ -402,8 +403,9 @@ class _BookInformationState extends State<BookInformation> {
                       onRatingUpdate: (rating) {
                         setState(() {
                           book.numRate++;
-                          book.rate+=(rating/book.numRate);
+                          book.rate=(rating+book.rate)/book.numRate;
                         });
+                        changeBook(book.name,book.author,Convertor.bookToString(book));
                       },
                     ),
                     const SizedBox(height: 10,),
@@ -435,12 +437,14 @@ class _BookInformationState extends State<BookInformation> {
                             onTaplike : (){
                               setState(() {
                                 Comment.like++;
+                                changeBook(book.name,book.author,Convertor.bookToString(book));
                               });
                             },
                             onTapDislike : (){
                               setState(() {
                                 Comment.dislike++;
                               });
+                              changeBook(book.name,book.author,Convertor.bookToString(book));
                             },
                           );
                         },

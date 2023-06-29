@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:readygo/Convertor.dart';
 import 'package:readygo/User.dart';
 import 'package:readygo/pages/PurchasePage.dart';
 import 'package:readygo/pages/editProfile.dart';
@@ -316,7 +317,7 @@ class _AccountState extends State<Account> {
       _imageFile= pickedFile;
       if (_imageFile!=null) {
         user.profilePhoto = _imageFile!.path;
-        
+        changeUser(user.username,Convertor.userToString(user));
       }
     });
   }
@@ -482,5 +483,15 @@ class _AccountState extends State<Account> {
       ),
     );
   }
-
+  changeUser (String username,String user) async {
+    String res='';
+    String request = "changeUser\n$username!!!$user\u0000";
+    var socket = await Socket.connect("192.168.1.102", 8000);
+    socket.write(request);
+    socket.flush();
+    var subscription =socket.listen((response) {
+      res=String.fromCharCodes(response);
+    });
+    await subscription.asFuture<void>();
+  }
 }
