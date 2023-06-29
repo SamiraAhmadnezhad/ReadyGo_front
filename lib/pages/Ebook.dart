@@ -58,7 +58,7 @@ class _EbookState extends State<Ebook> {
               child: Column(
                 children: [
                   SizedBox(height: 20,),
-                  const Text("recent",
+                  const Text("Recent Book",
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       fontSize: 20,

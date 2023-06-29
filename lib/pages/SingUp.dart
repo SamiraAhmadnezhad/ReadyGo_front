@@ -2,11 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:readygo/Book.dart';
-import 'package:readygo/Comment.dart';
 import 'package:readygo/Convertor.dart';
-import 'package:readygo/Genre.dart';
-import 'package:readygo/User.dart';
 import 'package:readygo/pages/HomePage.dart';
 
 class SingUp extends StatefulWidget{
@@ -22,7 +18,9 @@ class _SingUpState extends State<SingUp> {
   String massage='';
   String username="";
   String password="";
+  String checkPassword="";
   String email="";
+  String studentnumber='';
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -71,7 +69,12 @@ class _SingUpState extends State<SingUp> {
                 },
                 onChanged: (String username){
                   setState(() {
+                    if (username.isEmpty)
+                      massage='please enter user name';
+                    else
+                      massage="";
                     this.username=username;
+                    //print(this.password);
                   });
                 },
               ),
@@ -90,7 +93,36 @@ class _SingUpState extends State<SingUp> {
                 },
                 onChanged: (String email){
                   setState(() {
+                    if (!email.contains("@"))
+                      massage='do not use the @ char.';
+                    else
+                      massage="";
                     this.email=email;
+                    //print(this.email);
+                  });
+                },
+              ),
+              const SizedBox(height: 30),
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'studentnumber*',
+                  hintText: 'enter studentnumber',
+                  prefixIcon: Icon(Icons.lock),
+                ),
+                validator: (String? studentnumber){
+                  if (studentnumber==null) {
+                    return "please enter studentnumber!";
+                  }
+                  // other thing
+                },
+                onChanged: (String studentnumber){
+                  setState(() {
+                    if (password.length<8)
+                      massage='studentnumber should be 9 digits';
+                    else
+                      massage="";
+                    this.studentnumber=studentnumber;
+                    //print(this.password);
                   });
                 },
               ),
@@ -101,7 +133,7 @@ class _SingUpState extends State<SingUp> {
                   hintText: 'enter password',
                   prefixIcon: Icon(Icons.lock),
                 ),
-                validator: (String? password){
+                validator: (String? password) {
                   if (password==null) {
                     return "please enter password!";
                   }
@@ -109,7 +141,33 @@ class _SingUpState extends State<SingUp> {
                 },
                 onChanged: (String password){
                   setState(() {
+                    if (password.length<8)
+                      massage='password should be 8 charecter';
+                    else
+                      massage="";
                     this.password=password;
+                    //print(this.password);
+                  });
+                },
+              ),
+              const SizedBox(height: 30),
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'check password*',
+                  hintText: 'enter password again',
+                  prefixIcon: Icon(Icons.lock),
+                ),
+                validator: (String? password){
+                  if (password==null) {
+                    return "please enter password again!";
+                  }
+                  // other thing
+                },
+                onChanged: (String password){
+                  setState(() {
+                    checkPassword=password;
+                    if (password!=this.password)
+                    massage="The password is not repeated correctly!";
                   });
                 },
               ),
@@ -120,7 +178,7 @@ class _SingUpState extends State<SingUp> {
                   minWidth: double.infinity,
                   onPressed: (){
                     //check pass and email
-                    checkSingUp(email,password,username);
+                    checkSingUp(email,password,username,studentnumber,password);
                   },
                   color: Colors.purple,
                   child: const Text(
@@ -140,26 +198,36 @@ class _SingUpState extends State<SingUp> {
     );
   }
 
-  checkSingUp(String email,String pass,String username) async{
-    String request="checkSingUp\n$email,,$pass,,$username\u0000";
-    await Socket.connect("192.168.1.102", 8000).then((serverSocket){
-      serverSocket.write(request);
-      serverSocket.flush();
-      serverSocket.listen((response) {
-        List<String> list=LineSplitter().convert(String.fromCharCodes(response));
-        setState(() {
-          massage=list[0];
-        });
-        if (massage=="Sing up successfully"){
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => HomePage(
-                user: Convertor.stringToUser(list[1])
-              ),
-            ),
-          );
-        }
+  checkSingUp(String email,String pass,String username,String studentnumber,String password) async {
+    String res='';
+    if (pass.length<8 || !email.contains("@") || username.isEmpty || studentnumber.length!=9 || password!=checkPassword)
+      setState(() {
+        massage= "some thing is wrong!";
       });
-    });
+
+    else{
+      String request="checkSingUp\n$email,,$pass,,$username,,$studentnumber\u0000";
+      var socket = await Socket.connect("192.168.1.102", 8000);
+      socket.write(request);
+      socket.flush();
+      var subscription =socket.listen((response) {
+        res+=String.fromCharCodes(response);
+      });
+      await subscription.asFuture<void>();
+      List<String> list = LineSplitter().convert(res);
+      setState(() {
+        massage=list[0];
+      });
+      if (massage == "Sing up successfully") {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) =>
+                HomePage(
+                    user: Convertor.stringToUser(list[1])
+                ),
+          ),
+        );
+      }
+    }
   }
 }
