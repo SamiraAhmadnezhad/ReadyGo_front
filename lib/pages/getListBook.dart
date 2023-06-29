@@ -1,6 +1,5 @@
 import 'package:readygo/Book.dart';
 import 'package:readygo/Comment.dart';
-import 'package:readygo/Genre.dart';
 
 class getListBook{
   static List <Comment> comments=[

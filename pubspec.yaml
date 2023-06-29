@@ -41,6 +41,7 @@ dependencies:
   flutter_rating_stars: ^1.0.3+4
   flutter_rating_bar: ^4.0.1
   string_scanner: ^1.2.0
+  pdfx: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,7 @@ flutter:
     - assets/images/hary7.jpg
     - assets/images/profile.jpg
     - assets/images/credit card.jpg
+    - assets/pdf/sample.pdf
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

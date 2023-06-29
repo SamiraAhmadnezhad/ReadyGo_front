@@ -9,6 +9,8 @@ import 'package:readygo/Comment.dart';
 import 'package:readygo/CommentView.dart';
 import 'package:readygo/Convertor.dart';
 import 'package:readygo/User.dart';
+import 'package:readygo/pages/PdfReader.dart';
+import 'package:pdfx/pdfx.dart';
 
 class BookInformation extends StatefulWidget {
   const BookInformation({super.key,required this.user,required this.book});
@@ -30,6 +32,7 @@ class _BookInformationState extends State<BookInformation> {
   Color star4=Colors.grey.shade600;
   Color star5=Colors.grey.shade600;
   Color favorite=Colors.white;
+
   bool checkNull (List<Book>? books){
     if (books==null)
       return true;
@@ -147,7 +150,12 @@ class _BookInformationState extends State<BookInformation> {
                         const SizedBox(height: 15,),
                         MaterialButton(
                           onPressed: (){
-                            // open pdf
+                            print("start");
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => PdfReader()
+                              ),
+                            );
                           },
                           color: Colors.pink.shade400,
                           height: 45,
