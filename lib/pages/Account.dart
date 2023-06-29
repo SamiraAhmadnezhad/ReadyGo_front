@@ -361,7 +361,7 @@ class _AccountState extends State<Account> {
                   });
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                        builder: (context) => PurchasePage(user: user)),
+                        builder: (context) => PurchasePage(user: user,amount: int.parse(money))),
                   );
                 },
                 icon: Icon(Icons.done_outline),
