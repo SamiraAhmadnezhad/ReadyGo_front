@@ -4,6 +4,7 @@ import 'package:readygo/BookView.dart';
 import 'package:readygo/User.dart';
 import 'package:readygo/pages/BookInformation.dart';
 import 'package:readygo/pages/getListBook.dart';
+import 'package:url_launcher/url_launcher.dart';
 class Ebook extends StatefulWidget {
   Ebook({super.key,required this.user});
   User user;
@@ -18,6 +19,7 @@ class _EbookState extends State<Ebook> {
     super.initState();
   }
   User user;
+  final Uri _url = Uri.parse('https://en.wikipedia.org/wiki/Harry_Potter');
   List<Book> listEBook (List<Book> books){
     List<Book> result=[];
     for (Book b in  books){
@@ -53,6 +55,24 @@ class _EbookState extends State<Ebook> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+
+            Container(
+              color: Colors.pink.shade50,
+            child: Column(
+              children: [
+                Container(
+                  color: Colors.pink.shade50,
+                  //height: MediaQuery.of(context).size.height / 10,
+                  child: InkWell(
+                      onTap: _launchUrl,
+                    child: Image.asset("assets/images/tabligh.jpg")
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+
             Container(
               //color: Colors.white,
               child: Column(
@@ -250,5 +270,10 @@ class _EbookState extends State<Ebook> {
         ),
       )
     );
+  }
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
   }
 }
