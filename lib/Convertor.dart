@@ -63,9 +63,10 @@ class Convertor {
                 about: s[11],
                 sellNum: int.parse(s[9]),
                 like: int.parse(s[12]),
-                rate: double.parse(s[13]),
-                isAudioBook: boolparse(s[14]),
-                comments: stringToComment(s[15]),
+                numRate: int.parse(s[13]),
+                rate: double.parse(s[14]),
+                isAudioBook: boolparse(s[15]),
+                comments: stringToComment(s[16]),
             );
             result.add(b);
         }
@@ -100,7 +101,7 @@ class Convertor {
         if (book==null || book.isEmpty)
             return " ";
         for (Book  b in book!){
-            result+=b.name+"&&"+b.author+"&&"+genreToString(b.genre)+"&&"+b.png+"&&"+boolToString(b.isFree)+"&&"+boolToString(b.special)+"&&"+b.price.toString()+"&&"+b.year.toString()+"&&"+boolToString(b.isAvailable)+"&&"+b.sellNum.toString()+"&&"+boolToString(b.isNew)+"&&"+b.about+"&&"+b.like.toString()+"&&"+b.rate.toString()+"&&"+boolToString(b.isAudioBook)+"&&"+commentToString(b.comments)+"&&**";
+            result+=b.name+"&&"+b.author+"&&"+genreToString(b.genre)+"&&"+b.png+"&&"+boolToString(b.isFree)+"&&"+boolToString(b.special)+"&&"+b.price.toString()+"&&"+b.year.toString()+"&&"+boolToString(b.isAvailable)+"&&"+b.sellNum.toString()+"&&"+boolToString(b.isNew)+"&&"+b.about+"&&"+b.like.toString()+"&&"+b.numRate.toString()+"&&"+b.rate.toString()+"&&"+boolToString(b.isAudioBook)+"&&"+commentToString(b.comments)+"&&**";
         }
         return result;
     }
