@@ -45,6 +45,7 @@ Setting
 ![Picture8](https://github.com/SamiraAhmadnezhad/ReadyGo_front/assets/134923629/1bada021-db52-489c-b74b-0a9ec7739c83)
 
 1. Here you can change the theme from light to dark or light
+
 2 & 3. On the settings page, the user's information is displayed and the user can edit his information from here or change his profile picture.
 
 Payment page
