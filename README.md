@@ -31,3 +31,18 @@ Book information
 
 By clicking on any book, the information page of that book is opened, through this page you can see the book's information such as name, author, etc.
 Also, the user can register his opinion about the book here and read the opinions of other users or rate this book or add it to his favorites list.
+
+Shop
+
+![Picture7](https://github.com/SamiraAhmadnezhad/ReadyGo_front/assets/134923629/5abf96a1-bcba-4108-99bf-038ef1fc9943)
+
+Here the list of all books is displayed.
+Using the search tab, you can find the desired book by name.
+Books can be sorted based on available genres or by using the sort by option based on price and rate.
+
+Setting
+
+![Picture8](https://github.com/SamiraAhmadnezhad/ReadyGo_front/assets/134923629/1bada021-db52-489c-b74b-0a9ec7739c83)
+
+1. Here you can change the theme from light to dark or light
+2 & 3. On the settings page, the user's information is displayed and the user can edit his information from here or change his profile picture.
