@@ -46,3 +46,11 @@ Setting
 
 1. Here you can change the theme from light to dark or light
 2 & 3. On the settings page, the user's information is displayed and the user can edit his information from here or change his profile picture.
+
+Payment page
+
+![Picture9](https://github.com/SamiraAhmadnezhad/ReadyGo_front/assets/134923629/d1356caa-446a-42c9-a167-e84f602af3d0)
+
+Here you enter the payment page according to the operation you have chosen and enter your card code (the last 4 digits of the student number) to complete the operation.
+1. By choosing this operation, you can buy a special account and this will make all books free and access to special books.
+2. By selecting this operation and entering the desired number, the user's account will be charged with the desired amount.
