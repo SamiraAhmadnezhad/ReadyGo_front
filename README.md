@@ -18,3 +18,16 @@ Home page
 6. With this option, you can see the list of recently read, favorite, best selling and new books of e-books
 7. With this option, you can see the list of recently read, favorite, best selling and new audio books
 
+Library
+
+![Picture5](https://github.com/SamiraAhmadnezhad/ReadyGo_front/assets/134923629/091831c7-6d3a-4197-a0de-98e1401ff8c2)
+
+Here the list of all the books purchased by the user is displayed.
+By using the sort by option, you can sort the books in the order of the most likes or based on audio books and e-books
+
+Book information
+
+![Picture6](https://github.com/SamiraAhmadnezhad/ReadyGo_front/assets/134923629/7f040149-2244-46ec-b668-2fac479fba73)
+
+By clicking on any book, the information page of that book is opened, through this page you can see the book's information such as name, author, etc.
+Also, the user can register his opinion about the book here and read the opinions of other users or rate this book or add it to his favorites list.
